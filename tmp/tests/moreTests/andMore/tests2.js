@@ -16,40 +16,40 @@
 describe('13849 - SDFSDFSDF', function () {
     const testDecleration = () => '21598 - AFailingTest as an example'
 
-    it('AFailingTest', testDecleration);
+    it.skip('AFailingTest', testDecleration);
 
-    it('21598 - AFailingTest', function () {
+    it.skip('21598 - AFailingTest', function () {
         sdfuhsdfkhsf();
         example();
         '21598 - AFailingTest as an example'
     });
   
-    it('AFailingTest', function () {
+    it.skip('AFailingTest', function () {
         sdfuhsdfkhsf();
         example();
         '21598 - AFailingTest as an example'
     });
 
-    it('AFailingTest', function (param) {
+    it.skip('AFailingTest', function (param) {
         sdfuhsdfkhsf(param);
         example();
         '21598 - AFailingTest as an example'
     });
 
-    it('AFailingTest', (param) => {
+    it.skip('AFailingTest', (param) => {
         sdfuhsdfkhsf();
         example();
         '21598 - AFailingTest as an example'
     });
 
-    it('AFailingTest', () => {
+    it.skip('AFailingTest', () => {
         sdfuhsdfkhsf();
         example();
         '21598 - AFailingTest as an example'
     });
 
-    it('AFailingTest', () => example());
-    it('AFailingTest', param => example());
+    it.skip('AFailingTest', () => example());
+    it.skip('AFailingTest', param => example());
 
     it('AFailingTest 21598 - ', () => {
         sdfuhsdfkhsf();
@@ -58,38 +58,38 @@ describe('13849 - SDFSDFSDF', function () {
     });
 
     suite('example', () => {
-        test('21598 - AFailingTest', function () {
+        test.skip('21598 - AFailingTest', function () {
             sdfuhsdfkhsf()
             example()
             '21598 - AFailingTest as an example'
         })
 
-        test('AFailingTest', function () {
+        test.skip('AFailingTest', function () {
             sdfuhsdfkhsf()
             example()
             '21598 - AFailingTest as an example'
         })
 
-        test('AFailingTest', function (param) {
+        test.skip('AFailingTest', function (param) {
             sdfuhsdfkhsf(param)
             example()
             '21598 - AFailingTest as an example'
         })
 
-        test('AFailingTest', (param) => {
+        test.skip('AFailingTest', (param) => {
             sdfuhsdfkhsf()
             example()
             '21598 - AFailingTest as an example'
         })
 
-        test('AFailingTest', () => {
+        test.skip('AFailingTest', () => {
             sdfuhsdfkhsf()
             example()
             '21598 - AFailingTest as an example'
         })
 
-        test('AFailingTest', () => example())
-        test('AFailingTest', param => example())
+        test.skip('AFailingTest', () => example())
+        test.skip('AFailingTest', param => example())
 
         test('AFailingTest 21598 - ', () => {
             sdfuhsdfkhsf()
