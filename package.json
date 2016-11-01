@@ -1,0 +1,15 @@
+{
+  "name": "selenium-build-monitor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/build-monitor.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "nodegit": "^0.16.0",
+    "xmldoc": "^0.5.1"
+  }
+}
