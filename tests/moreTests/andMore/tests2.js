@@ -101,15 +101,8 @@ describe('13849 - SDFSDFSDF', function () {
 <testcase classname="foo89" name="21598 - 4545435434"/>
 "DATE:20091201T220000\r\nSUMMARY:Dad's birthday"
 'DATE:20091201T220000\r\nSUMMARY:Dad\'s birthday'
-y"
 'DATE:20091201T220000\r\nSUMMARY:Dad\'s birthday'
-y"
 'DATE:20091201T220000\r\nSUMMARY:Dad\'s birthday'
-y"
 'DATE:20091201T220000\r\nSUMMARY:Dad\'s birthday'
-y"
 'DATE:20091201T220000\r\nSUMMARY:Dad\'s birthday'
-y"
-'DATE:20091201T220000\r\nSUMMARY:Dad\'s birthday'
-y"
 'DATE:20091201T220000\r\nSUMMARY:Dad\'s birthday'
