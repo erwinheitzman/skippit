@@ -14,7 +14,13 @@
   </testsuite>
 </testsuites>
 describe('13849 - SDFSDFSDF', function () {
-	it.skip('21598 - AFailingTest', function () {
+	it('21598 - AFailingTest', function () {
+		sdfuhsdfkhsf();
+		example();
+		'21598 - AFailingTest as an example'
+  });
+  
+	it('AFailingTest', function () {
 		sdfuhsdfkhsf();
 		example();
 		'21598 - AFailingTest as an example'
