@@ -1,15 +1,17 @@
 {
   "name": "selenium-build-monitor",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
-  "main": "lib/build-monitor.js",
+  "main": "index.js",
   "scripts": {
     "test": "test"
   },
-  "author": "",
+  "author": "Erwin Heitzman",
   "license": "MIT",
   "devDependencies": {
+    "chai": "^4.1.0",
     "eslint": "^4.2.0",
+    "mocha": "^3.4.2",
     "nodegit": "^0.16.0",
     "xmldoc": "^0.5.1"
   }

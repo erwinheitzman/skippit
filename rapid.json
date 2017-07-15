@@ -1,0 +1,5 @@
+{
+    "testsPath": "./tests",
+    "resultsPath": "./results",    
+    "maxFailures": 3
+}
