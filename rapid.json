@@ -1,5 +1,8 @@
 {
-    "testsPath": "./tests",
-    "resultsPath": "./results",    
+    "testsPath": "./test/dummyTestFiles",
+    "results": {
+        "path": "./results",
+        "formats": ["xml"]
+    },
     "maxFailures": 3
 }

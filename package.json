@@ -1,18 +1,18 @@
 {
-  "name": "selenium-build-monitor",
-  "version": "0.1.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "test"
-  },
-  "author": "Erwin Heitzman",
-  "license": "MIT",
-  "devDependencies": {
-    "chai": "^4.1.0",
-    "eslint": "^4.2.0",
-    "mocha": "^3.4.2",
-    "nodegit": "^0.16.0",
-    "xmldoc": "^0.5.1"
-  }
+    "name": "selenium-build-monitor",
+    "version": "0.1.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "node ./node_modules/mocha/bin/mocha"
+    },
+    "author": "Erwin Heitzman",
+    "license": "MIT",
+    "devDependencies": {
+        "chai": "^4.1.0",
+        "eslint": "^4.2.0",
+        "mocha": "^3.4.2",
+        "nodegit": "^0.16.0",
+        "xmldoc": "^0.5.1"
+    }
 }

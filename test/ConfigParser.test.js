@@ -3,7 +3,10 @@ const ConfigParser = require('../lib/utils/ConfigParser').ConfigParser
 const configParser = new ConfigParser
 const DEFAULT_CONFIG = {
     testsPath: [],
-    resultsPath: [],    
+    results: {
+        path: [],
+        formats: []
+    },
     maxFailures: 3
 }
 

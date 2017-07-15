@@ -1,7 +1,10 @@
 module.exports = () => {
     return {
         testsPath: './tests',
-        resultsPath: './tests',    
+        results: {
+            path: './tests',
+            formats: ['xml']
+        },
         maxFailures: 3
     }
 }
