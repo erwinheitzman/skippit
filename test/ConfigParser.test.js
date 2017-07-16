@@ -1,5 +1,5 @@
 const expect = require('chai').expect
-const ConfigParser = require('../lib/utils/ConfigParser').ConfigParser
+const { ConfigParser } = require('../lib/utils/ConfigParser')
 const configParser = new ConfigParser
 const DEFAULT_CONFIG = {
     testsPath: [],

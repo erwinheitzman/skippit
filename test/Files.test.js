@@ -1,7 +1,7 @@
 const path = require('path')
 const absolutePath = path.resolve(__dirname, '../results')
 const expect = require('chai').expect
-const Files = require('../lib/Files').Files
+const { Files } = require('../lib/Files')
 const files = new Files
 
 describe('Files.get', () => {
