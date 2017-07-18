@@ -6,15 +6,15 @@ const files = new Files
 
 describe('Files.get', () => {
     const xmlFiles = [
-        'C:\\dev\\build-monitor\\results\\results_01.xml',
-        'C:\\dev\\build-monitor\\results\\results_02.xml',
-        'C:\\dev\\build-monitor\\results\\results_03.xml',
-        'C:\\dev\\build-monitor\\results\\results_04.xml'
+        path.join(__dirname, '..', 'results\\results_01.xml'),
+        path.join(__dirname, '..', 'results\\results_02.xml'),
+        path.join(__dirname, '..', 'results\\results_03.xml'),
+        path.join(__dirname, '..', 'results\\results_04.xml'),
     ]
     const jsFiles = [
-        'C:\\dev\\build-monitor\\results\\dummyTestFiles\\evenMoreTests\\example.js',
-        'C:\\dev\\build-monitor\\results\\dummyTestFiles\\moreTests\\andMore\\tests.js',
-        'C:\\dev\\build-monitor\\results\\dummyTestFiles\\moreTests\\andMore\\tests2.js',
+        path.join(__dirname, '..', 'results\\dummyTestFiles\\evenMoreTests\\example.js'),
+        path.join(__dirname, '..', 'results\\dummyTestFiles\\moreTests\\andMore\\tests.js'),
+        path.join(__dirname, '..', 'results\\dummyTestFiles\\moreTests\\andMore\\tests2.js'),
     ]
 
     it('should return a array of all files from the given directory', () => {
