@@ -1,5 +1,8 @@
 {
-    "testsPath": "./test/dummyTestFiles",
+    "tests": {
+        "path": "./test/dummyTestFiles",
+        "formats": ["js"]
+    },
     "results": {
         "path": "./results",
         "formats": ["xml"]
