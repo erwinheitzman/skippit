@@ -1,10 +1,10 @@
 {
     "tests": {
-        "path": "./test/dummyTestFiles",
+        "path": "./tmp/tests",
         "formats": ["js"]
     },
     "results": {
-        "path": "./results",
+        "path": "./tmp/results",
         "formats": ["xml"]
     },
     "maxFailures": 3
