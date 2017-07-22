@@ -1,4 +1,5 @@
 {
+    "url": "",
     "tests": {
         "path": "./tmp/tests",
         "formats": ["js"]
