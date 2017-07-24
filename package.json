@@ -13,7 +13,7 @@
     "deepmerge": "^1.5.0",
     "eslint": "^4.2.0",
     "mocha": "^3.4.2",
-    "nodegit": "^0.18.3",
+    "simple-git": "^1.74.1",
     "xmldoc": "^0.5.1"
   }
 }
