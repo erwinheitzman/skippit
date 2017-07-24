@@ -1,5 +1,5 @@
 {
-    "url": "",
+    "url": "https://github.com/erwinheitzman/tmp.git",
     "tests": {
         "path": "./tmp/tests",
         "formats": ["js"]
