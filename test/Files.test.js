@@ -1,72 +1,48 @@
 const path = require('path')
-const absolutePath = path.resolve(__dirname, '../results')
+const absolutePath = path.resolve(__dirname, 'dummyFiles')
 const expect = require('chai').expect
 const { Files } = require('../lib/Files')
 const files = new Files
 
 describe('Files.get', () => {
-    const xmlFiles = [
-        path.join(__dirname, '..', 'results\\results_01.xml'),
-        path.join(__dirname, '..', 'results\\results_02.xml'),
-        path.join(__dirname, '..', 'results\\results_03.xml'),
-        path.join(__dirname, '..', 'results\\results_04.xml'),
-    ]
-    const jsonFiles = [
-        path.join(__dirname, '..', 'results\\results_01.json'),
-        path.join(__dirname, '..', 'results\\results_02.json'),
-        path.join(__dirname, '..', 'results\\results_03.json'),
-        path.join(__dirname, '..', 'results\\results_04.json'),
-    ]
-    const jsFiles = [
-        path.join(__dirname, '..', 'results\\dummyTestFiles\\evenMoreTests\\example.js'),
-        path.join(__dirname, '..', 'results\\dummyTestFiles\\moreTests\\andMore\\tests.js'),
-        path.join(__dirname, '..', 'results\\dummyTestFiles\\moreTests\\andMore\\tests2.js'),
-    ]
-    const allFilesInRootFolder = [
-        path.join(__dirname, '..', 'results\\results_01.json'),
-        path.join(__dirname, '..', 'results\\results_01.xml'),
-        path.join(__dirname, '..', 'results\\results_02.json'),    
-        path.join(__dirname, '..', 'results\\results_02.xml'),
-        path.join(__dirname, '..', 'results\\results_03.json'),
-        path.join(__dirname, '..', 'results\\results_03.xml'),
-        path.join(__dirname, '..', 'results\\results_04.json'),
-        path.join(__dirname, '..', 'results\\results_04.xml'),
-    ]
+    const xmlFile = [ path.join(__dirname, 'dummyFiles\\results\\results_01.xml') ]
+    const jsonFile = [ path.join(__dirname, 'dummyFiles\\results\\subFolder\\results_01.json') ]
+    const jsFile = [ path.join(__dirname, 'dummyFiles\\tests\\tests_01.js') ]
+    const testJsFile = [ path.join(__dirname, 'dummyFiles\\tests\\subFolder\\tests_01.test.js') ]
 
     it('should return a array of all files from the given directory', () => {
         const actual = files.get(absolutePath)
 
-        expect(actual).to.deep.equal(allFilesInRootFolder)
+        expect(actual).to.deep.equal([])
     })
 
     it('should return a array of all files from the given directory and all sub directories', () => {
         const actual = files.get(absolutePath, [], true)
 
-        expect(actual).to.deep.equal(jsFiles.concat(allFilesInRootFolder))
+        expect(actual).to.deep.equal([].concat(
+            xmlFile,
+            jsonFile,
+            testJsFile,
+            jsFile
+        ))
     })
 
     it('should return a array of all xml files from the given directory', () => {
-        const actual = files.get(absolutePath, ['xml'])
+        const actual = files.get(path.join(absolutePath, 'results'), ['xml'])
 
-        expect(actual).to.deep.equal(xmlFiles)
+        expect(actual).to.deep.equal(xmlFile)
     })
 
     it('should return a array of all xml files from the given directory and all sub directories', () => {
         const actual = files.get(absolutePath, ['xml'], true)
 
-        expect(actual).to.deep.equal(xmlFiles)
-    })
-
-    it('should return a array of all xml and js files from the given directory', () => {
-        const actual = files.get(absolutePath, ['xml', 'js'])
-
-        expect(actual).to.deep.equal(xmlFiles)
+        expect(actual).to.deep.equal(xmlFile)
     })
 
     it('should return a array of all xml and js files from the given directory and all sub directories', () => {
         const actual = files.get(absolutePath, ['xml', 'js'], true)
 
-        expect(actual).to.deep.equal(jsFiles.concat(xmlFiles))
+        expect(actual).to.deep.equal([].concat(xmlFile, testJsFile, jsFile))
     })
 
     it('should return a array of all js files from the given directory', () => {
@@ -76,8 +52,8 @@ describe('Files.get', () => {
     })
 
     it('should return a array of all js files from the given directory and all sub directories', () => {
-        const actual = files.get(absolutePath, ['js'], true)
+        const actual = files.get(absolutePath, ['json'], true)
 
-        expect(actual).to.deep.equal(jsFiles)
+        expect(actual).to.deep.equal(jsonFile)
     })
 })

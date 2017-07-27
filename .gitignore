@@ -1,3 +1,4 @@
 # Dependency directories
+.vscode
 node_modules
 tmp

@@ -1,5 +1,5 @@
 {
-    "url": "https://github.com/erwinheitzman/tmp.git",
+    "remote": "https://github.com/erwinheitzman/tmp.git",
     "repoPath": "C:/dev/tmp",
     "tests": {
         "path": "tests",
