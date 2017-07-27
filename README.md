@@ -1,7 +1,7 @@
 SkippyIO
 ===========
 
-Test management tool
+**Test management tool**
 SkippyIOis created to allow for a easy to manage solution for managing failing tests.
 
 - **Easy setup.**
