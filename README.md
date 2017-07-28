@@ -3,7 +3,7 @@ SkippyIO
 
 **Test management tool**
 
-SkippyIOis created to allow for a easy to manage solution for managing failing tests.
+SkippyIO is created to allow for a easy to manage solution for managing failing tests.
 
 - **Easy setup.**
 - **Manage failing tests using treshold.**
