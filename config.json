@@ -1,12 +1,12 @@
 {
     "tests": {
-        "path": "tests",
+        "path": "./tests",
         "formats": [
             "js"
         ]
     },
     "results": {
-        "path": "C:/dev/tmp/results",
+        "path": "C:/dev/temp_repo/results",
         "formats": [
             "xml"
         ]
