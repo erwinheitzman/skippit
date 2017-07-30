@@ -1,13 +1,17 @@
 {
-    "remote": "https://github.com/erwinheitzman/tmp.git",
-    "repoPath": "C:/dev/tmp",
     "tests": {
         "path": "tests",
-        "formats": ["js"]
+        "formats": [
+            "js"
+        ]
     },
     "results": {
         "path": "C:/dev/tmp/results",
-        "formats": ["xml"]
+        "formats": [
+            "xml"
+        ]
     },
+    "remote": "https://github.com/erwinheitzman/tmp.git",
+    "repoPath": "C:/dev/temp_repo",
     "maxFailures": 3
 }
