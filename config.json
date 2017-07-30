@@ -6,7 +6,7 @@
         "formats": ["js"]
     },
     "results": {
-        "path": "results",
+        "path": "C:/dev/tmp/results",
         "formats": ["xml"]
     },
     "maxFailures": 3
