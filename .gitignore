@@ -1,5 +1,5 @@
 # Dependency directories
 .vscode
 node_modules
-disabled*.log
+disabled*.json
 tmp
