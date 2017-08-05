@@ -38,6 +38,9 @@ describe('Files.get', () => {
             ];
 
             const { Files } = proxyquire('../lib/Files', {
+                path: {
+                    isAbsolute: sinon.stub().returns(true)
+                },
                 fs: {
                     existsSync: () => true,
                     readdirSync: () => filesStub,
@@ -62,6 +65,9 @@ describe('Files.get', () => {
             ];
 
             const { Files } = proxyquire('../lib/Files', {
+                path: {
+                    isAbsolute: sinon.stub().returns(true)
+                },
                 fs: {
                     existsSync: () => true,
                     readdirSync: (dir) => dir !== 'C:\\dev\\temp_repo\\results\\sub_directory' ?
@@ -87,6 +93,9 @@ describe('Files.get', () => {
             ];
 
             const { Files } = proxyquire('../lib/Files', {
+                path: {
+                    isAbsolute: sinon.stub().returns(true)
+                },
                 fs: {
                     existsSync: () => true,
                     readdirSync: () => filesStub,
@@ -107,6 +116,9 @@ describe('Files.get', () => {
             ];
 
             const { Files } = proxyquire('../lib/Files', {
+                path: {
+                    isAbsolute: sinon.stub().returns(true)
+                },
                 fs: {
                     existsSync: () => true,
                     readdirSync: (dir) => dir !== 'C:\\dev\\temp_repo\\results\\sub_directory' ?
@@ -134,6 +146,9 @@ describe('Files.get', () => {
             ];
 
             const { Files } = proxyquire('../lib/Files', {
+                path: {
+                    isAbsolute: sinon.stub().returns(true)
+                },
                 fs: {
                     existsSync: () => true,
                     readdirSync: () => filesStub.concat(['results_01.test.js', 'results_01.test.js']),
@@ -158,6 +173,9 @@ describe('Files.get', () => {
             ];
 
             const { Files } = proxyquire('../lib/Files', {
+                path: {
+                    isAbsolute: sinon.stub().returns(true)
+                },
                 fs: {
                     existsSync: () => true,
                     readdirSync: (dir) => dir !== 'C:\\dev\\temp_repo\\results\\sub_directory' ?
