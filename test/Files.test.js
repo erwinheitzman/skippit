@@ -32,10 +32,10 @@ describe('Files.get', () => {
 
         it('should return a array of all files from the given directory', () => {
             let expected = [
-                'C:\\dev\\temp_repo\\results\\results_01.xml',
-                'C:\\dev\\temp_repo\\results\\results_02.xml',
-                'C:\\dev\\temp_repo\\results\\results_01.json',
-                'C:\\dev\\temp_repo\\results\\results_02.json',
+                'C:/dev/temp_repo/results/results_01.xml',
+                'C:/dev/temp_repo/results/results_02.xml',
+                'C:/dev/temp_repo/results/results_01.json',
+                'C:/dev/temp_repo/results/results_02.json',
             ];
             expected = expected.map(result => path.normalize(result));
 
@@ -56,14 +56,14 @@ describe('Files.get', () => {
 
         it('should return a array of all files from the given directory and all sub directories', () => {
             let expected = [
-                'C:\\dev\\temp_repo\\results\\results_01.xml',
-                'C:\\dev\\temp_repo\\results\\results_02.xml',
-                'C:\\dev\\temp_repo\\results\\results_01.json',
-                'C:\\dev\\temp_repo\\results\\results_02.json',
-                'C:\\dev\\temp_repo\\results\\sub_directory\\results_03.xml',
-                'C:\\dev\\temp_repo\\results\\sub_directory\\results_03.xml',
-                'C:\\dev\\temp_repo\\results\\sub_directory\\results_04.json',
-                'C:\\dev\\temp_repo\\results\\sub_directory\\results_04.json',
+                'C:/dev/temp_repo/results/results_01.xml',
+                'C:/dev/temp_repo/results/results_02.xml',
+                'C:/dev/temp_repo/results/results_01.json',
+                'C:/dev/temp_repo/results/results_02.json',
+                'C:/dev/temp_repo/results/sub_directory/results_03.xml',
+                'C:/dev/temp_repo/results/sub_directory/results_03.xml',
+                'C:/dev/temp_repo/results/sub_directory/results_04.json',
+                'C:/dev/temp_repo/results/sub_directory/results_04.json',
             ];
             expected = expected.map(result => path.normalize(result));
 
@@ -73,10 +73,10 @@ describe('Files.get', () => {
                 },
                 fs: {
                     existsSync: () => true,
-                    readdirSync: (dir) => dir !== 'C:\\dev\\temp_repo\\results\\sub_directory' ?
+                    readdirSync: (dir) => dir !== path.normalize('C:/dev/temp_repo/results/sub_directory') ?
                         filesStub.concat(['sub_directory']) :
                         subFilesStub,
-                    statSync: (dir) =>  dir === 'C:\\dev\\temp_repo\\results\\sub_directory' ?
+                    statSync: (dir) =>  dir === path.normalize('C:/dev/temp_repo/results/sub_directory') ?
                         ({ isDirectory: () => true }) :
                         ({ isDirectory: () => false })
                 }
@@ -91,8 +91,8 @@ describe('Files.get', () => {
 
         it('should return a array of all xml files from the given directory', () => {
             let expected = [
-                'C:\\dev\\temp_repo\\results\\results_01.xml',
-                'C:\\dev\\temp_repo\\results\\results_02.xml',
+                'C:/dev/temp_repo/results/results_01.xml',
+                'C:/dev/temp_repo/results/results_02.xml',
             ];
             expected = expected.map(result => path.normalize(result));
 
@@ -113,10 +113,10 @@ describe('Files.get', () => {
 
         it('should return a array of all xml files from the given directory and all sub directories', () => {
             let expected = [
-                'C:\\dev\\temp_repo\\results\\results_01.xml',
-                'C:\\dev\\temp_repo\\results\\results_02.xml',
-                'C:\\dev\\temp_repo\\results\\sub_directory\\results_03.xml',
-                'C:\\dev\\temp_repo\\results\\sub_directory\\results_03.xml',
+                'C:/dev/temp_repo/results/results_01.xml',
+                'C:/dev/temp_repo/results/results_02.xml',
+                'C:/dev/temp_repo/results/sub_directory/results_03.xml',
+                'C:/dev/temp_repo/results/sub_directory/results_03.xml',
             ];
             expected = expected.map(result => path.normalize(result));
 
@@ -126,10 +126,10 @@ describe('Files.get', () => {
                 },
                 fs: {
                     existsSync: () => true,
-                    readdirSync: (dir) => dir !== 'C:\\dev\\temp_repo\\results\\sub_directory' ?
+                    readdirSync: (dir) => dir !== path.normalize('C:/dev/temp_repo/results/sub_directory') ?
                         filesStub.concat(['sub_directory']) :
                         subFilesStub,
-                    statSync: (dir) =>  dir === 'C:\\dev\\temp_repo\\results\\sub_directory' ?
+                    statSync: (dir) =>  dir === path.normalize('C:/dev/temp_repo/results/sub_directory') ?
                         ({ isDirectory: () => true }) :
                         ({ isDirectory: () => false })
                 }
@@ -144,10 +144,10 @@ describe('Files.get', () => {
 
         it('should return a array of all xml and json files from the given directory', () => {
             let expected = [
-                'C:\\dev\\temp_repo\\results\\results_01.xml',
-                'C:\\dev\\temp_repo\\results\\results_02.xml',
-                'C:\\dev\\temp_repo\\results\\results_01.json',
-                'C:\\dev\\temp_repo\\results\\results_02.json',
+                'C:/dev/temp_repo/results/results_01.xml',
+                'C:/dev/temp_repo/results/results_02.xml',
+                'C:/dev/temp_repo/results/results_01.json',
+                'C:/dev/temp_repo/results/results_02.json',
             ];
             expected = expected.map(result => path.normalize(result));
 
@@ -168,14 +168,14 @@ describe('Files.get', () => {
 
         it('should return a array of all xml and json files from the given directory and all sub directories', () => {
             let expected = [
-                'C:\\dev\\temp_repo\\results\\results_01.xml',
-                'C:\\dev\\temp_repo\\results\\results_02.xml',
-                'C:\\dev\\temp_repo\\results\\results_01.json',
-                'C:\\dev\\temp_repo\\results\\results_02.json',
-                'C:\\dev\\temp_repo\\results\\sub_directory\\results_03.xml',
-                'C:\\dev\\temp_repo\\results\\sub_directory\\results_03.xml',
-                'C:\\dev\\temp_repo\\results\\sub_directory\\results_04.json',
-                'C:\\dev\\temp_repo\\results\\sub_directory\\results_04.json',
+                'C:/dev/temp_repo/results/results_01.xml',
+                'C:/dev/temp_repo/results/results_02.xml',
+                'C:/dev/temp_repo/results/results_01.json',
+                'C:/dev/temp_repo/results/results_02.json',
+                'C:/dev/temp_repo/results/sub_directory/results_03.xml',
+                'C:/dev/temp_repo/results/sub_directory/results_03.xml',
+                'C:/dev/temp_repo/results/sub_directory/results_04.json',
+                'C:/dev/temp_repo/results/sub_directory/results_04.json',
             ];
             expected = expected.map(result => path.normalize(result));
 
@@ -185,13 +185,13 @@ describe('Files.get', () => {
                 },
                 fs: {
                     existsSync: () => true,
-                    readdirSync: (dir) => dir !== 'C:\\dev\\temp_repo\\results\\sub_directory' ?
+                    readdirSync: (dir) => dir !== path.normalize('C:/dev/temp_repo/results/sub_directory') ?
                         filesStub.concat(
                             ['results_01.test.js', 'results_01.test.js'],
                             ['sub_directory']
                         ) :
                         subFilesStub,
-                    statSync: (dir) =>  dir === 'C:\\dev\\temp_repo\\results\\sub_directory' ?
+                    statSync: (dir) =>  dir === path.normalize('C:/dev/temp_repo/results/sub_directory') ?
                         ({ isDirectory: () => true }) :
                         ({ isDirectory: () => false })
                 }
