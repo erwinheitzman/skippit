@@ -1,59 +1,179 @@
-const path = require('path')
-const absolutePath = path.resolve(__dirname, 'dummyFiles')
-const expect = require('chai').expect
-const { Files } = require('../lib/Files')
-const files = new Files
+const expect = require('chai').expect;
+const proxyquire = require('proxyquire');
+const sinon = require('sinon');
 
 describe('Files.get', () => {
-    const xmlFile = [ path.join(__dirname, 'dummyFiles\\results\\results_01.xml') ]
-    const jsonFile = [ path.join(__dirname, 'dummyFiles\\results\\subFolder\\results_01.json') ]
-    const jsFile = [ path.join(__dirname, 'dummyFiles\\tests\\tests_01.js') ]
-    const testJsFile = [ path.join(__dirname, 'dummyFiles\\tests\\subFolder\\tests_01.test.js') ]
+    const filesStub = [
+        'results_01.xml',
+        'results_02.xml',
+        'results_01.json',
+        'results_02.json',
+    ];
+    const subFilesStub = [
+        'results_03.xml',
+        'results_03.xml',
+        'results_04.json',
+        'results_04.json',
+    ];
 
-    it('should return a array of all files from the given directory', () => {
-        const actual = files.get(absolutePath)
+    it('should return files (empty array) if the directory does not exist', () => {
+        const { Files } = proxyquire('../lib/Files', {
+            fs: {
+                existsSync: sinon.stub().returns(false)
+            }
+        });
+        const files = new Files;
 
-        expect(actual).to.deep.equal([])
-    })
+        expect(files.get('C:/dev/temp_repo/results')).to.deep.equal([]);
+    });
 
-    it('should return a array of all files from the given directory and all sub directories', () => {
-        const actual = files.get(absolutePath, [], true)
+    describe('no filter', () => {
 
-        expect(actual).to.deep.equal([].concat(
-            xmlFile,
-            jsonFile,
-            testJsFile,
-            jsFile
-        ))
-    })
+        it('should return a array of all files from the given directory', () => {
+            const expected = [
+                'C:\\dev\\temp_repo\\results\\results_01.xml',
+                'C:\\dev\\temp_repo\\results\\results_02.xml',
+                'C:\\dev\\temp_repo\\results\\results_01.json',
+                'C:\\dev\\temp_repo\\results\\results_02.json',
+            ];
 
-    it('should return a array of all xml files from the given directory', () => {
-        const actual = files.get(path.join(absolutePath, 'results'), ['xml'])
+            const { Files } = proxyquire('../lib/Files', {
+                fs: {
+                    existsSync: () => true,
+                    readdirSync: () => filesStub,
+                    statSync: () => ({ isDirectory: () => false })
+                }
+            });
+            const files = new Files
 
-        expect(actual).to.deep.equal(xmlFile)
-    })
+            expect(files.get('C:/dev/temp_repo/results')).to.deep.equal(expected);
+        });
 
-    it('should return a array of all xml files from the given directory and all sub directories', () => {
-        const actual = files.get(absolutePath, ['xml'], true)
+        it('should return a array of all files from the given directory and all sub directories', () => {
+            const expected = [
+                'C:\\dev\\temp_repo\\results\\results_01.xml',
+                'C:\\dev\\temp_repo\\results\\results_02.xml',
+                'C:\\dev\\temp_repo\\results\\results_01.json',
+                'C:\\dev\\temp_repo\\results\\results_02.json',
+                'C:\\dev\\temp_repo\\results\\sub_directory\\results_03.xml',
+                'C:\\dev\\temp_repo\\results\\sub_directory\\results_03.xml',
+                'C:\\dev\\temp_repo\\results\\sub_directory\\results_04.json',
+                'C:\\dev\\temp_repo\\results\\sub_directory\\results_04.json',
+            ];
 
-        expect(actual).to.deep.equal(xmlFile)
-    })
+            const { Files } = proxyquire('../lib/Files', {
+                fs: {
+                    existsSync: () => true,
+                    readdirSync: (dir) => dir !== 'C:\\dev\\temp_repo\\results\\sub_directory' ?
+                        filesStub.concat(['sub_directory']) :
+                        subFilesStub,
+                    statSync: (dir) =>  dir === 'C:\\dev\\temp_repo\\results\\sub_directory' ?
+                        ({ isDirectory: () => true }) :
+                        ({ isDirectory: () => false })
+                }
+            });
+            const files = new Files
 
-    it('should return a array of all xml and js files from the given directory and all sub directories', () => {
-        const actual = files.get(absolutePath, ['xml', 'js'], true)
+            expect(files.get('C:/dev/temp_repo/results', [], true)).to.deep.equal(expected);
+        });
+    });
 
-        expect(actual).to.deep.equal([].concat(xmlFile, testJsFile, jsFile))
-    })
+    describe('one extention', () => {
 
-    it('should return a array of all js files from the given directory', () => {
-        const actual = files.get(absolutePath, ['js'])
+        it('should return a array of all xml files from the given directory', () => {
+            const expected = [
+                'C:\\dev\\temp_repo\\results\\results_01.xml',
+                'C:\\dev\\temp_repo\\results\\results_02.xml',
+            ];
 
-        expect(actual).to.deep.equal([])
-    })
+            const { Files } = proxyquire('../lib/Files', {
+                fs: {
+                    existsSync: () => true,
+                    readdirSync: () => filesStub,
+                    statSync: () => ({ isDirectory: () => false })
+                }
+            });
+            const files = new Files
 
-    it('should return a array of all js files from the given directory and all sub directories', () => {
-        const actual = files.get(absolutePath, ['json'], true)
+            expect(files.get('C:/dev/temp_repo/results', ['xml'])).to.deep.equal(expected);
+        });
 
-        expect(actual).to.deep.equal(jsonFile)
-    })
-})
+        it('should return a array of all xml files from the given directory and all sub directories', () => {
+            const expected = [
+                'C:\\dev\\temp_repo\\results\\results_01.xml',
+                'C:\\dev\\temp_repo\\results\\results_02.xml',
+                'C:\\dev\\temp_repo\\results\\sub_directory\\results_03.xml',
+                'C:\\dev\\temp_repo\\results\\sub_directory\\results_03.xml',
+            ];
+
+            const { Files } = proxyquire('../lib/Files', {
+                fs: {
+                    existsSync: () => true,
+                    readdirSync: (dir) => dir !== 'C:\\dev\\temp_repo\\results\\sub_directory' ?
+                        filesStub.concat(['sub_directory']) :
+                        subFilesStub,
+                    statSync: (dir) =>  dir === 'C:\\dev\\temp_repo\\results\\sub_directory' ?
+                        ({ isDirectory: () => true }) :
+                        ({ isDirectory: () => false })
+                }
+            });
+            const files = new Files
+
+            expect(files.get('C:/dev/temp_repo/results', ['xml'], true)).to.deep.equal(expected);
+        });
+    });
+
+    describe('two extentions', () => {
+
+        it('should return a array of all xml and json files from the given directory', () => {
+            const expected = [
+                'C:\\dev\\temp_repo\\results\\results_01.xml',
+                'C:\\dev\\temp_repo\\results\\results_02.xml',
+                'C:\\dev\\temp_repo\\results\\results_01.json',
+                'C:\\dev\\temp_repo\\results\\results_02.json',
+            ];
+
+            const { Files } = proxyquire('../lib/Files', {
+                fs: {
+                    existsSync: () => true,
+                    readdirSync: () => filesStub.concat(['results_01.test.js', 'results_01.test.js']),
+                    statSync: () => ({ isDirectory: () => false })
+                }
+            });
+            const files = new Files
+
+            expect(files.get('C:/dev/temp_repo/results', ['xml', 'json'])).to.deep.equal(expected);
+        });
+
+        it('should return a array of all xml and json files from the given directory and all sub directories', () => {
+            const expected = [
+                'C:\\dev\\temp_repo\\results\\results_01.xml',
+                'C:\\dev\\temp_repo\\results\\results_02.xml',
+                'C:\\dev\\temp_repo\\results\\results_01.json',
+                'C:\\dev\\temp_repo\\results\\results_02.json',
+                'C:\\dev\\temp_repo\\results\\sub_directory\\results_03.xml',
+                'C:\\dev\\temp_repo\\results\\sub_directory\\results_03.xml',
+                'C:\\dev\\temp_repo\\results\\sub_directory\\results_04.json',
+                'C:\\dev\\temp_repo\\results\\sub_directory\\results_04.json',
+            ];
+
+            const { Files } = proxyquire('../lib/Files', {
+                fs: {
+                    existsSync: () => true,
+                    readdirSync: (dir) => dir !== 'C:\\dev\\temp_repo\\results\\sub_directory' ?
+                        filesStub.concat(
+                            ['results_01.test.js', 'results_01.test.js'],
+                            ['sub_directory']
+                        ) :
+                        subFilesStub,
+                    statSync: (dir) =>  dir === 'C:\\dev\\temp_repo\\results\\sub_directory' ?
+                        ({ isDirectory: () => true }) :
+                        ({ isDirectory: () => false })
+                }
+            });
+            const files = new Files
+
+            expect(files.get('C:/dev/temp_repo/results', ['xml', 'json'], true)).to.deep.equal(expected);
+        });
+    });
+});
