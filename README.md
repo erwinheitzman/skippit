@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/erwinheitzman/skippyio.svg?branch=master)](https://travis-ci.org/erwinheitzman/skippyio)
+
 SkippyIO
 ===========
 
