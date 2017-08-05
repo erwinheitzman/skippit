@@ -1,6 +1,7 @@
 const expect = require('chai').expect;
 const proxyquire = require('proxyquire');
 const sinon = require('sinon');
+const path = require('path');
 
 describe('Files.get', () => {
     const filesStub = [
@@ -30,12 +31,13 @@ describe('Files.get', () => {
     describe('no filter', () => {
 
         it('should return a array of all files from the given directory', () => {
-            const expected = [
+            let expected = [
                 'C:\\dev\\temp_repo\\results\\results_01.xml',
                 'C:\\dev\\temp_repo\\results\\results_02.xml',
                 'C:\\dev\\temp_repo\\results\\results_01.json',
                 'C:\\dev\\temp_repo\\results\\results_02.json',
             ];
+            expected = expected.map(result => path.normalize(result));
 
             const { Files } = proxyquire('../lib/Files', {
                 path: {
@@ -53,7 +55,7 @@ describe('Files.get', () => {
         });
 
         it('should return a array of all files from the given directory and all sub directories', () => {
-            const expected = [
+            let expected = [
                 'C:\\dev\\temp_repo\\results\\results_01.xml',
                 'C:\\dev\\temp_repo\\results\\results_02.xml',
                 'C:\\dev\\temp_repo\\results\\results_01.json',
@@ -63,6 +65,7 @@ describe('Files.get', () => {
                 'C:\\dev\\temp_repo\\results\\sub_directory\\results_04.json',
                 'C:\\dev\\temp_repo\\results\\sub_directory\\results_04.json',
             ];
+            expected = expected.map(result => path.normalize(result));
 
             const { Files } = proxyquire('../lib/Files', {
                 path: {
@@ -87,10 +90,11 @@ describe('Files.get', () => {
     describe('one extention', () => {
 
         it('should return a array of all xml files from the given directory', () => {
-            const expected = [
+            let expected = [
                 'C:\\dev\\temp_repo\\results\\results_01.xml',
                 'C:\\dev\\temp_repo\\results\\results_02.xml',
             ];
+            expected = expected.map(result => path.normalize(result));
 
             const { Files } = proxyquire('../lib/Files', {
                 path: {
@@ -108,12 +112,13 @@ describe('Files.get', () => {
         });
 
         it('should return a array of all xml files from the given directory and all sub directories', () => {
-            const expected = [
+            let expected = [
                 'C:\\dev\\temp_repo\\results\\results_01.xml',
                 'C:\\dev\\temp_repo\\results\\results_02.xml',
                 'C:\\dev\\temp_repo\\results\\sub_directory\\results_03.xml',
                 'C:\\dev\\temp_repo\\results\\sub_directory\\results_03.xml',
             ];
+            expected = expected.map(result => path.normalize(result));
 
             const { Files } = proxyquire('../lib/Files', {
                 path: {
@@ -138,12 +143,13 @@ describe('Files.get', () => {
     describe('two extentions', () => {
 
         it('should return a array of all xml and json files from the given directory', () => {
-            const expected = [
+            let expected = [
                 'C:\\dev\\temp_repo\\results\\results_01.xml',
                 'C:\\dev\\temp_repo\\results\\results_02.xml',
                 'C:\\dev\\temp_repo\\results\\results_01.json',
                 'C:\\dev\\temp_repo\\results\\results_02.json',
             ];
+            expected = expected.map(result => path.normalize(result));
 
             const { Files } = proxyquire('../lib/Files', {
                 path: {
@@ -161,7 +167,7 @@ describe('Files.get', () => {
         });
 
         it('should return a array of all xml and json files from the given directory and all sub directories', () => {
-            const expected = [
+            let expected = [
                 'C:\\dev\\temp_repo\\results\\results_01.xml',
                 'C:\\dev\\temp_repo\\results\\results_02.xml',
                 'C:\\dev\\temp_repo\\results\\results_01.json',
@@ -171,6 +177,7 @@ describe('Files.get', () => {
                 'C:\\dev\\temp_repo\\results\\sub_directory\\results_04.json',
                 'C:\\dev\\temp_repo\\results\\sub_directory\\results_04.json',
             ];
+            expected = expected.map(result => path.normalize(result));
 
             const { Files } = proxyquire('../lib/Files', {
                 path: {
