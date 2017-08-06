@@ -1,5 +1,8 @@
 {
-    "extends": "eslint:recommended",
+    "extends": [
+        // "eslint:recommended",
+        "./node_modules/goodparts/.eslintrc.js"
+    ],
     "env": {
         "browser": true,
         "commonjs": true,
@@ -14,14 +17,15 @@
         "sourceType": "module"
     },
     "rules": {
+        "semi": ["error", "always"],
+        "max-len": ["warn", 80],
         "no-const-assign": "warn",
-        "no-this-before-super": "warn",
-        "no-undef": "warn",
-        "no-unreachable": "warn",
-        "no-unused-vars": "warn",
-        "constructor-super": "warn",
-        "valid-typeof": "warn",
-        // "indent": "error",
+        "no-this-before-super": "error",
+        "no-undef": "error",
+        "no-unreachable": "error",
+        "no-unused-vars": "error",
+        "constructor-super": "error",
+        "valid-typeof": "error",
         "indent": ["error", 4],
         "no-console": ["error", { "allow": ["info", "warn", "error"] }]
     }

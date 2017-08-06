@@ -1,9 +1,10 @@
-require('./lib/utils/ConfigurationHelper').init(() => {
-    const Githandler = require('./lib/utils/SourceControlHandler')
-    const gitHandler = new Githandler
+const Githandler = require('./lib/utils/SourceControlHandler');
+const logger = require('./lib/Logger');
 
+const gitHandler = new Githandler();
+
+require('./lib/utils/ConfigurationHelper').init(() => {
     gitHandler.disableTestsAndPushChanges(() => {
-        const logger = require('./lib/Logger')
-        logger.createLogFile()
-    })
-})
+        logger.createLogFile();
+    });
+});
