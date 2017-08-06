@@ -1,4 +1,4 @@
-const expect = require('chai').expect;
+const assert = require('assert');
 const proxyquire = require('proxyquire');
 const sinon = require('sinon');
 
@@ -43,7 +43,7 @@ describe('XmlProcessor.processFiles', () => {
         const XmlProcessor = proxyquire.noCallThru()
             .load('../lib/XmlProcessor', XmlProcessorStub);
 
-        expect(XmlProcessor.processFiles()).to.deep.equal({
+        assert.deepEqual(XmlProcessor.processFiles(), {
             'AFailingTest': { failed: 8 },
             '21598 - AFailingTest': { failed: 12 }
         });

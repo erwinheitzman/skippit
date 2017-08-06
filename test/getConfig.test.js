@@ -1,5 +1,5 @@
 const path = require('path');
-const expect = require('chai').expect;
+const assert = require('assert');
 const proxyquire = require('proxyquire');
 const sinon = require('sinon');
 
@@ -58,13 +58,13 @@ describe('getConfig', () => {
     it('should return default configurations by default', () => {
         const config = proxyquire('../lib/utils/getConfig', configStub);
 
-        expect(config).to.deep.equal(defaultConfig);
+        assert.deepEqual(config, defaultConfig);
     });
 
     it('should return default config if no config file exists', () => {
         const config = proxyquire('../lib/utils/getConfig', configStub);
 
-        expect(config).to.deep.equal(defaultConfig);
+        assert.deepEqual(config, defaultConfig);
     });
 
     it('should return a merge of default config and config.json', () => {
@@ -73,6 +73,6 @@ describe('getConfig', () => {
         const config = proxyquire.noCallThru()
             .load('../lib/utils/getConfig', configStub);
 
-        expect(config).to.deep.equal(mergedConfig);
+        assert.deepEqual(config, mergedConfig);
     });
 });

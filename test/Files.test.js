@@ -1,4 +1,4 @@
-const expect = require('chai').expect;
+const assert = require('assert');
 const proxyquire = require('proxyquire');
 const sinon = require('sinon');
 const path = require('path');
@@ -21,7 +21,7 @@ describe('Files.get', () => {
         const Files = proxyquire('../lib/Files',
             { fs: { existsSync: sinon.stub().returns(false) } });
 
-        expect(Files.get('C:/dev/temp_repo/results')).to.deep.equal([]);
+        assert.deepEqual(Files.get('C:/dev/temp_repo/results'), []);
     });
 
     describe('no filter', () => {
@@ -44,7 +44,7 @@ describe('Files.get', () => {
                 }
             });
 
-            expect(Files.get('C:/dev/temp_repo/results')).to.deep.equal(expected);
+            assert.deepEqual(Files.get('C:/dev/temp_repo/results'), expected);
         });
 
         it('should return a array of all files from the given directory and all sub directories', () => {
@@ -74,7 +74,7 @@ describe('Files.get', () => {
                 }
             });
 
-            expect(Files.get('C:/dev/temp_repo/results', [], true)).to.deep.equal(expected);
+            assert.deepEqual(Files.get('C:/dev/temp_repo/results', [], true), expected);
         });
     });
 
@@ -94,7 +94,7 @@ describe('Files.get', () => {
                 }
             });
 
-            expect(Files.get('C:/dev/temp_repo/results', ['xml'])).to.deep.equal(expected);
+            assert.deepEqual(Files.get('C:/dev/temp_repo/results', ['xml']), expected);
         });
 
         it('should return a array of all xml files from the given directory and all sub directories', () => {
@@ -120,7 +120,7 @@ describe('Files.get', () => {
                 }
             });
 
-            expect(Files.get('C:/dev/temp_repo/results', ['xml'], true)).to.deep.equal(expected);
+            assert.deepEqual(Files.get('C:/dev/temp_repo/results', ['xml'], true), expected);
         });
     });
 
@@ -145,7 +145,7 @@ describe('Files.get', () => {
                 }
             });
 
-            expect(Files.get('C:/dev/temp_repo/results', ['xml', 'json'])).to.deep.equal(expected);
+            assert.deepEqual(Files.get('C:/dev/temp_repo/results', ['xml', 'json']), expected);
         });
 
         it('should return a array of all xml and json files from the given directory and all sub directories', () => {
@@ -178,7 +178,7 @@ describe('Files.get', () => {
                 }
             });
 
-            expect(Files.get('C:/dev/temp_repo/results', ['xml', 'json'], true)).to.deep.equal(expected);
+            assert.deepEqual(Files.get('C:/dev/temp_repo/results', ['xml', 'json'], true), expected);
         });
     });
 });
