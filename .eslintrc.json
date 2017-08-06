@@ -1,6 +1,5 @@
 {
     "extends": [
-        // "eslint:recommended",
         "./node_modules/goodparts/.eslintrc.js"
     ],
     "env": {
