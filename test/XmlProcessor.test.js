@@ -2,18 +2,16 @@ const expect = require('chai').expect;
 const proxyquire = require('proxyquire');
 const sinon = require('sinon');
 
-const Results = proxyquire.noCallThru().load('../lib/Results', {
-    get: sinon.stub().returns([
-        'C:/dev/temp_repo/results/results_01.xml',
-        'C:/dev/temp_repo/results/results_02.xml',
-        'C:/dev/temp_repo/results/results_03.xml',
-        'C:/dev/temp_repo/results/results_04.xml'
-    ])
-});
-
 const XmlProcessorStub = {
-    Results: Results,
-    fs: {
+    './Results': {
+        get: sinon.stub().returns([
+            'C:/dev/temp_repo/results/results_01.xml',
+            'C:/dev/temp_repo/results/results_02.xml',
+            'C:/dev/temp_repo/results/results_03.xml',
+            'C:/dev/temp_repo/results/results_04.xml'
+        ])
+    },
+    'fs': {
         readFileSync: sinon.stub().returns(
             '<testsuites>'
             + '  <testsuite tests="3">'
