@@ -18,12 +18,10 @@ describe('Files.get', () => {
     ];
 
     it('should return files (empty array) if the directory does not exist', () => {
-        const { Files } = proxyquire('../lib/Files',
+        const Files = proxyquire('../lib/Files',
             { fs: { existsSync: sinon.stub().returns(false) } });
 
-        const files = new Files();
-
-        expect(files.get('C:/dev/temp_repo/results')).to.deep.equal([]);
+        expect(Files.get('C:/dev/temp_repo/results')).to.deep.equal([]);
     });
 
     describe('no filter', () => {
@@ -37,7 +35,7 @@ describe('Files.get', () => {
 
             expected = expected.map(result => path.normalize(result));
 
-            const { Files } = proxyquire('../lib/Files', {
+            const Files = proxyquire('../lib/Files', {
                 path: { isAbsolute: sinon.stub().returns(true) },
                 fs: {
                     existsSync: () => true,
@@ -45,9 +43,8 @@ describe('Files.get', () => {
                     statSync: () => ({ isDirectory: () => false })
                 }
             });
-            const files = new Files();
 
-            expect(files.get('C:/dev/temp_repo/results')).to.deep.equal(expected);
+            expect(Files.get('C:/dev/temp_repo/results')).to.deep.equal(expected);
         });
 
         it('should return a array of all files from the given directory and all sub directories', () => {
@@ -64,7 +61,7 @@ describe('Files.get', () => {
 
             const normalizedPath = path.normalize('C:/dev/temp_repo/results/sub_directory');
 
-            const { Files } = proxyquire('../lib/Files', {
+            const Files = proxyquire('../lib/Files', {
                 path: { isAbsolute: sinon.stub().returns(true) },
                 fs: {
                     existsSync: () => true,
@@ -76,9 +73,8 @@ describe('Files.get', () => {
                         : ({ isDirectory: () => false })
                 }
             });
-            const files = new Files();
 
-            expect(files.get('C:/dev/temp_repo/results', [], true)).to.deep.equal(expected);
+            expect(Files.get('C:/dev/temp_repo/results', [], true)).to.deep.equal(expected);
         });
     });
 
@@ -89,7 +85,7 @@ describe('Files.get', () => {
                 'C:/dev/temp_repo/results/results_02.xml'
             ].map(result => path.normalize(result));
 
-            const { Files } = proxyquire('../lib/Files', {
+            const Files = proxyquire('../lib/Files', {
                 path: { isAbsolute: sinon.stub().returns(true) },
                 fs: {
                     existsSync: () => true,
@@ -97,9 +93,8 @@ describe('Files.get', () => {
                     statSync: () => ({ isDirectory: () => false })
                 }
             });
-            const files = new Files();
 
-            expect(files.get('C:/dev/temp_repo/results', ['xml'])).to.deep.equal(expected);
+            expect(Files.get('C:/dev/temp_repo/results', ['xml'])).to.deep.equal(expected);
         });
 
         it('should return a array of all xml files from the given directory and all sub directories', () => {
@@ -112,7 +107,7 @@ describe('Files.get', () => {
 
             const normalizedPath = path.normalize('C:/dev/temp_repo/results/sub_directory');
 
-            const { Files } = proxyquire('../lib/Files', {
+            const Files = proxyquire('../lib/Files', {
                 path: { isAbsolute: sinon.stub().returns(true) },
                 fs: {
                     existsSync: () => true,
@@ -124,9 +119,8 @@ describe('Files.get', () => {
                         : ({ isDirectory: () => false })
                 }
             });
-            const files = new Files();
 
-            expect(files.get('C:/dev/temp_repo/results', ['xml'], true)).to.deep.equal(expected);
+            expect(Files.get('C:/dev/temp_repo/results', ['xml'], true)).to.deep.equal(expected);
         });
     });
 
@@ -139,7 +133,7 @@ describe('Files.get', () => {
                 'C:/dev/temp_repo/results/results_02.json'
             ].map(result => path.normalize(result));
 
-            const { Files } = proxyquire('../lib/Files', {
+            const Files = proxyquire('../lib/Files', {
                 path: { isAbsolute: sinon.stub().returns(true) },
                 fs: {
                     existsSync: () => true,
@@ -150,9 +144,8 @@ describe('Files.get', () => {
                     statSync: () => ({ isDirectory: () => false })
                 }
             });
-            const files = new Files();
 
-            expect(files.get('C:/dev/temp_repo/results', ['xml', 'json'])).to.deep.equal(expected);
+            expect(Files.get('C:/dev/temp_repo/results', ['xml', 'json'])).to.deep.equal(expected);
         });
 
         it('should return a array of all xml and json files from the given directory and all sub directories', () => {
@@ -169,7 +162,7 @@ describe('Files.get', () => {
 
             const normalizedPath = path.normalize('C:/dev/temp_repo/results/sub_directory');
 
-            const { Files } = proxyquire('../lib/Files', {
+            const Files = proxyquire('../lib/Files', {
                 path: { isAbsolute: sinon.stub().returns(true) },
                 fs: {
                     existsSync: () => true,
@@ -184,9 +177,8 @@ describe('Files.get', () => {
                         : ({ isDirectory: () => false })
                 }
             });
-            const files = new Files();
 
-            expect(files.get('C:/dev/temp_repo/results', ['xml', 'json'], true)).to.deep.equal(expected);
+            expect(Files.get('C:/dev/temp_repo/results', ['xml', 'json'], true)).to.deep.equal(expected);
         });
     });
 });

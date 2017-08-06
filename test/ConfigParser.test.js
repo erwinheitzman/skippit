@@ -3,7 +3,7 @@ const expect = require('chai').expect;
 const proxyquire = require('proxyquire');
 const sinon = require('sinon');
 
-const configPath = path.join(__dirname, '../config');
+const configPath = path.join(__dirname, '../config.json');
 const configStub = {
     fs: { existsSync: sinon.stub().returns(false) },
     [configPath]: {

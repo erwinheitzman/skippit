@@ -17,6 +17,8 @@
         "sourceType": "module"
     },
     "rules": {
+        "global-require": "warn",
+        "callback-return": "warn",
         "semi": ["error", "always"],
         "max-len": ["warn", 80],
         "no-const-assign": "warn",
