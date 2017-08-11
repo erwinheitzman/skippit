@@ -105,7 +105,6 @@ describe('tests.disable', () => {
             testStub['./Results'].failedTests = { [failingTest]: { failed: 4 } };
 
             assert.throws(() => tests.disable(disableCallback), /this is dummy error 1/);
-            assert.equal(testStub['./Logger'].disabledTests.notCalled, true);
 
             testStub.fs.writeFile.reset();
         });
