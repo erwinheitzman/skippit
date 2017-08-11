@@ -69,7 +69,8 @@ const testStub = {
     },
     './Results': { failedTests: {} },
     './Files': { get: sinon.stub().returns(files) },
-    './XmlProcessor': { processFiles: sinon.stub().returns(true) }
+    './XmlProcessor': { processFiles: sinon.stub().returns(true) },
+    './Logger': { disabledTests: sinon.stub() }
 };
 
 const tests = proxyquire.noCallThru().load('../lib/Tests', testStub);
@@ -92,5 +93,34 @@ describe('tests.disable', () => {
 
         assert.equal(testStub.fs.writeFile.getCall(3).args[0], files[3]);
         assert.equal(testStub.fs.writeFile.getCall(3).args[1], fileProcessed);
+    });
+
+    describe('when fs.writeFile returns an error', () => {
+        it('should pass the error to the callback and throw the error', () => {
+            const failingTest = 'should return the files it receives from Files.get';
+            const disableCallback = sinon.stub();
+
+            testStub.fs.readFile.yields(null, file);
+            testStub.fs.writeFile.yields('this is dummy error 1');
+            testStub['./Results'].failedTests = { [failingTest]: { failed: 4 } };
+
+            assert.throws(() => tests.disable(disableCallback), /this is dummy error 1/);
+            assert.equal(testStub['./Logger'].disabledTests.notCalled, true);
+
+            testStub.fs.writeFile.reset();
+        });
+    });
+
+    describe('when fs.readFile returns an error', () => {
+        it('should pass the error to the callback and throw the error', () => {
+            const failingTest = 'should return the files it receives from Files.get';
+            const disableCallback = sinon.stub();
+
+            testStub.fs.readFile.yields('this is dummy error 2');
+            testStub['./Results'].failedTests = { [failingTest]: { failed: 4 } };
+
+            assert.throws(() => tests.disable(disableCallback), /this is dummy error 2/);
+            assert.equal(testStub.fs.writeFile.notCalled, true);
+        });
     });
 });
