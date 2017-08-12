@@ -17,7 +17,7 @@ const config = {
         ]
     },
     remote: 'https://github.com/host/repo.git',
-    repoPath: '',
+    repoPath: null,
     maxFailures: 3
 };
 
@@ -39,8 +39,11 @@ const { sourceControlHandler, gitHandler } = proxyquire.noCallThru().load('../..
 
 describe('sourceControlHandler', () => {
     describe('gitHandler', () => {
+        afterEach(() => stub.fs.existsSync.reset());
+
         it('should normalize path if path is absolute', () => {
             config.repoPath = 'C:/dev/temp_repo';
+            isAbsolute: sinon.stub().returns(true)
 
             gitHandler.disableTestsAndPushChanges(() => {});
 
@@ -48,8 +51,6 @@ describe('sourceControlHandler', () => {
             const expected = path.normalize('C:/dev/temp_repo');
 
             assert.equal(actual, expected);
-
-            stub.fs.existsSync.reset();
         });
 
         it('should resolve path with the process path if path is relative', () => {
@@ -61,8 +62,6 @@ describe('sourceControlHandler', () => {
             const expected = path.resolve(process.cwd(), './dev/temp_repo');
 
             assert.equal(actual, expected);
-
-            stub.fs.existsSync.reset();
         });
     });
 });
