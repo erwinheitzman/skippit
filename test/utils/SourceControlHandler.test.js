@@ -22,6 +22,11 @@ const config = {
 };
 
 const stub = {
+    path: {
+        isAbsolute: sinon.stub(),
+        normalize: sinon.stub(),
+        resolve: sinon.stub()
+    },
     fs: {
         existsSync: sinon.stub(),
         mkdirSync: sinon.stub()
@@ -43,12 +48,12 @@ describe('sourceControlHandler', () => {
 
         it('should normalize path if path is absolute', () => {
             config.repoPath = 'C:/dev/temp_repo';
-            isAbsolute: sinon.stub().returns(true)
+            stub.path.isAbsolute.returns(true);
 
             gitHandler.disableTestsAndPushChanges(() => {});
 
             const actual = stub.fs.existsSync.getCall(0).args[0];
-            const expected = path.normalize('C:/dev/temp_repo');
+            const expected = stub.path.normalize('C:/dev/temp_repo');
 
             assert.equal(actual, expected);
         });
@@ -59,7 +64,7 @@ describe('sourceControlHandler', () => {
             gitHandler.disableTestsAndPushChanges(() => {});
 
             const actual = stub.fs.existsSync.getCall(0).args[0];
-            const expected = path.resolve(process.cwd(), './dev/temp_repo');
+            const expected = stub.path.resolve(process.cwd(), './dev/temp_repo');
 
             assert.equal(actual, expected);
         });
