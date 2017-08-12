@@ -3,7 +3,8 @@ const assert = require('assert');
 const proxyquire = require('proxyquire');
 const sinon = require('sinon');
 
-const configPath = path.join(__dirname, '../config.json');
+const getConfigPath = '../../lib/utils/getConfig';
+const configPath = path.join(__dirname, '../../config.json');
 const configStub = {
     fs: { existsSync: sinon.stub().returns(false) },
     [configPath]: {
@@ -56,13 +57,13 @@ describe('getConfig', () => {
     };
 
     it('should return default configurations by default', () => {
-        const config = proxyquire('../lib/utils/getConfig', configStub);
+        const config = proxyquire(getConfigPath, configStub);
 
         assert.deepEqual(config, defaultConfig);
     });
 
     it('should return default config if no config file exists', () => {
-        const config = proxyquire('../lib/utils/getConfig', configStub);
+        const config = proxyquire(getConfigPath, configStub);
 
         assert.deepEqual(config, defaultConfig);
     });
@@ -70,8 +71,7 @@ describe('getConfig', () => {
     it('should return a merge of default config and config.json', () => {
         configStub.fs.existsSync.returns(true);
 
-        const config = proxyquire.noCallThru()
-            .load('../lib/utils/getConfig', configStub);
+        const config = proxyquire.noCallThru().load(getConfigPath, configStub);
 
         assert.deepEqual(config, mergedConfig);
     });

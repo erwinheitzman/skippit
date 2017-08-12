@@ -67,9 +67,8 @@ const testStub = {
         readFile: sinon.stub(),
         writeFile: sinon.stub()
     },
-    './Results': { failedTests: {} },
     './Files': { get: sinon.stub().returns(files) },
-    './XmlProcessor': { processFiles: sinon.stub().returns(true) },
+    './XmlProcessor': { processFiles: sinon.stub() },
     './Logger': { disabledTests: sinon.stub() }
 };
 
@@ -87,7 +86,7 @@ describe('tests.disable', () => {
         const disableCallback = sinon.stub();
 
         testStub.fs.readFile.yields(null, file);
-        testStub['./Results'].failedTests = { [failingTest]: { failed: 4 } };
+        testStub['./XmlProcessor'].processFiles.returns({ [failingTest]: { failed: 4 } });
 
         tests.disable(disableCallback);
 
@@ -102,7 +101,7 @@ describe('tests.disable', () => {
 
             testStub.fs.readFile.yields(null, file);
             testStub.fs.writeFile.yields('this is dummy error 1');
-            testStub['./Results'].failedTests = { [failingTest]: { failed: 4 } };
+            testStub['./XmlProcessor'].processFiles.returns({ [failingTest]: { failed: 4 } });
 
             assert.throws(() => tests.disable(disableCallback), /this is dummy error 1/);
 
@@ -116,7 +115,7 @@ describe('tests.disable', () => {
             const disableCallback = sinon.stub();
 
             testStub.fs.readFile.yields('this is dummy error 2');
-            testStub['./Results'].failedTests = { [failingTest]: { failed: 4 } };
+            testStub['./XmlProcessor'].processFiles.returns({ [failingTest]: { failed: 4 } });
 
             assert.throws(() => tests.disable(disableCallback), /this is dummy error 2/);
             assert.equal(testStub.fs.writeFile.notCalled, true);
