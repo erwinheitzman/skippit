@@ -4,8 +4,8 @@
   "description": "",
   "main": "skippyio.js",
   "scripts": {
-    "test": "node ./node_modules/mocha/bin/mocha",
-    "coverage": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha"
+    "test": "node ./node_modules/mocha/bin/mocha --opts ./mocha.opts",
+    "coverage": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- --opts ./mocha.opts"
   },
   "author": "Erwin Heitzman <erwin.heitzman@gmail.com>",
   "license": "MIT",
