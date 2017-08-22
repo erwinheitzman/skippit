@@ -63,12 +63,12 @@ describe('configurationHelper', () => {
         });
 
         it('should not create a config if overwite is false', () => {
+            const expectedArgs = ['C:/dev/build-monitor/config.json', configAsJSONString, 'utf8'];
+
             configurationHelper.overwrite = true;
             configurationHelper.createConfig();
-            
-            assert.equal(stub.fs.writeFileSync.getCall(0).args[0], 'C:/dev/build-monitor/config.json');
-            assert.equal(stub.fs.writeFileSync.getCall(0).args[1], configAsJSONString);
-            assert.equal(stub.fs.writeFileSync.getCall(0).args[2], 'utf8');
+
+            assert.deepEqual(stub.fs.writeFileSync.getCall(0).args, expectedArgs);
         });
     });
 });
