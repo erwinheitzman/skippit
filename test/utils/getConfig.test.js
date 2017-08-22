@@ -2,20 +2,21 @@ const path = require('path');
 const assert = require('assert');
 const proxyquire = require('proxyquire');
 const sinon = require('sinon');
-
 const getConfigPath = '../../lib/utils/getConfig';
+const defaultConfig = require('../../lib/utils/defaultConfig.js');
 const configPath = path.join(__dirname, '../../config.json');
+
 const configStub = {
     fs: { existsSync: sinon.stub().returns(false) },
     [configPath]: {
         tests: {
-            path: './tests',
+            path: './path/to/tests',
             formats: [
                 'js'
             ]
         },
         results: {
-            path: 'C:/dev/temp_repo/results',
+            path: './path/to/results',
             formats: [
                 'xml'
             ]
@@ -23,39 +24,15 @@ const configStub = {
     }
 };
 
+const mergedConfig = {
+    tests: configStub[configPath].tests,
+    results: configStub[configPath].results,
+    remote: defaultConfig.remote,
+    repoPath: defaultConfig.repoPath,
+    maxFailures: defaultConfig.maxFailures
+};
+
 describe('getConfig', () => {
-    const defaultConfig = {
-        tests: {
-            path: [],
-            formats: []
-        },
-        results: {
-            path: [],
-            formats: []
-        },
-        remote: [],
-        repoPath: [],
-        maxFailures: []
-    };
-
-    const mergedConfig = {
-        tests: {
-            path: './tests',
-            formats: [
-                'js'
-            ]
-        },
-        results: {
-            path: 'C:/dev/temp_repo/results',
-            formats: [
-                'xml'
-            ]
-        },
-        remote: [],
-        repoPath: [],
-        maxFailures: []
-    };
-
     it('should return default configurations by default', () => {
         const config = proxyquire(getConfigPath, configStub);
 

@@ -1,5 +1,9 @@
 # Dependency directories
 node_modules
+
+# nyc coverage directories
+.nyc_output
 coverage
+
+# logs
 disabled*.json
-tmp
