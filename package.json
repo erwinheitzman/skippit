@@ -4,7 +4,8 @@
   "description": "",
   "main": "skippyio.js",
   "scripts": {
-    "test": "nyc --reporter=html --reporter=text node ./node_modules/mocha/bin/mocha --opts ./mocha.opts"
+    "test": "nyc --reporter=html --reporter=text node ./node_modules/mocha/bin/mocha --opts ./mocha.opts",
+    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
   },
   "author": "Erwin Heitzman <erwin.heitzman@gmail.com>",
   "license": "MIT",
