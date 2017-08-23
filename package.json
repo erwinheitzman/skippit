@@ -2,7 +2,7 @@
   "name": "selenium-build-monitor",
   "version": "0.1.0",
   "description": "",
-  "main": "skippyio.js",
+  "main": "skippit.js",
   "scripts": {
     "test": "nyc --reporter=html --reporter=text node ./node_modules/mocha/bin/mocha --opts ./mocha.opts",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
@@ -11,13 +11,13 @@
   "license": "MIT",
   "devDependencies": {
     "deepmerge": "^1.5.0",
-    "eslint": "^4.2.0",
+    "eslint": "^4.5.0",
     "goodparts": "^1.2.1",
-    "mocha": "^3.4.2",
+    "mocha": "^3.5.0",
     "nyc": "^11.1.0",
     "proxyquire": "^1.8.0",
     "simple-git": "^1.74.1",
-    "sinon": "^2.3.8",
+    "sinon": "^3.2.1",
     "xmldoc": "^0.5.1"
   }
 }

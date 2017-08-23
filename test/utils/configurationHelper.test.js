@@ -24,7 +24,7 @@ const configAsJSONString = '{\n'
 + '}'
 const stub = {
     fs: {
-        existsSync: sinon.stub().returns(false),
+        existsSync: sinon.stub(),
         writeFileSync: sinon.stub()
     },
     path: {
@@ -46,13 +46,33 @@ describe('configurationHelper', () => {
 
     describe('askQuestions', () => {
         it('should call askQuestion once for each question', () => {
-            configurationHelper.askQuestion = sinon.stub().returns(new Promise((resolve) => resolve()));
-
             configurationHelper.askQuestions().then(() => {
                 assert.equal(configurationHelper.askQuestion.callCount, Object.keys(setupQuestions).length);
             });
         });
     });
+
+    // describe('askQuestion', () => {
+    //     it('should not ask for an overwrite of the config file if none exists', () => {
+    //         stub.fs.existsSync.returns(false);
+
+    //         configurationHelper.askQuestion('overwrite');
+
+    //         assert.equal(stub.readline.write.called, false);
+    //         assert.equal(stub.readline.question.called, false);
+
+    //         stub.fs.existsSync.reset();
+    //     });
+
+    //     it('should ask for an overwrite of the config file if one exists', () => {
+    //         stub.fs.existsSync.returns(true);
+
+    //         configurationHelper.askQuestion('overwrite');
+
+    //         assert.equal(stub.readline.createInterface.write.called, true);
+    //         assert.equal(stub.readline.createInterface.question.called, true);
+    //     });
+    // });
 
     describe('createConfig', () => {
         it('should not create a config if overwite is false', () => {
@@ -69,6 +89,28 @@ describe('configurationHelper', () => {
             configurationHelper.createConfig();
 
             assert.deepEqual(stub.fs.writeFileSync.getCall(0).args, expectedArgs);
+        });
+    });
+
+    describe('init', () => {
+        process.argv = [
+            'C:\\Program Files\\nodejs\\node.exe',
+            'C:\\dev\\build-monitor\\skippit.js',
+        ];
+
+        it('should not start the process of creating a config file if the config param is missing', () => {
+            configurationHelper.askQuestions = sinon.stub().returns(new Promise((resolve) => resolve()));
+
+            configurationHelper.init();
+            assert.equal(configurationHelper.askQuestions.called, false);
+        });
+
+        it('should start the process of creating a config file if the config param is given', () => {
+            configurationHelper.askQuestions = sinon.stub().returns(new Promise((resolve) => resolve()));
+            process.argv.push('config');
+
+            configurationHelper.init();
+            assert.equal(configurationHelper.askQuestions.called, true);
         });
     });
 });
