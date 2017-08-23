@@ -46,6 +46,8 @@ describe('configurationHelper', () => {
 
     describe('askQuestions', () => {
         it('should call askQuestion once for each question', () => {
+            configurationHelper.askQuestion = sinon.stub();
+
             configurationHelper.askQuestions().then(() => {
                 assert.equal(configurationHelper.askQuestion.callCount, Object.keys(setupQuestions).length);
             });
