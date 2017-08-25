@@ -30,6 +30,12 @@ const stub = {
     path: {
         join: sinon.stub().returns('C:/dev/build-monitor/config.json')
     },
+    readline: {
+        createInterface: sinon.stub().returns({
+            question: sinon.stub(),
+            write: sinon.stub()
+        })
+    },
     [configPath]: defaultConfig,
 };
 
@@ -46,35 +52,37 @@ describe('configurationHelper', () => {
 
     describe('askQuestions', () => {
         it('should call askQuestion once for each question', () => {
-            configurationHelper.askQuestion = sinon.stub();
+            const askQuestionStub = sinon.stub(configurationHelper, 'askQuestion');
 
             configurationHelper.askQuestions().then(() => {
                 assert.equal(configurationHelper.askQuestion.callCount, Object.keys(setupQuestions).length);
             });
+
+            askQuestionStub.restore();
         });
     });
 
-    // describe('askQuestion', () => {
-    //     it('should not ask for an overwrite of the config file if none exists', () => {
-    //         stub.fs.existsSync.returns(false);
+    describe('askQuestion', () => {
+        it('should not ask for an overwrite of the config file if none exists', () => {
+            const rl = stub.readline.createInterface();
+            rl.question.reset();
+            stub.fs.existsSync.returns(false);
+            configurationHelper.askQuestion('overwrite');
 
-    //         configurationHelper.askQuestion('overwrite');
+            assert.equal(rl.question.called, false);
 
-    //         assert.equal(stub.readline.write.called, false);
-    //         assert.equal(stub.readline.question.called, false);
+            stub.fs.existsSync.reset();
+        });
 
-    //         stub.fs.existsSync.reset();
-    //     });
+        it('should ask for an overwrite of the config file if one exists', () => {
+            const rl = stub.readline.createInterface();
+            rl.question.reset();            
+            stub.fs.existsSync.returns(true);
+            configurationHelper.askQuestion('overwrite');
 
-    //     it('should ask for an overwrite of the config file if one exists', () => {
-    //         stub.fs.existsSync.returns(true);
-
-    //         configurationHelper.askQuestion('overwrite');
-
-    //         assert.equal(stub.readline.createInterface.write.called, true);
-    //         assert.equal(stub.readline.createInterface.question.called, true);
-    //     });
-    // });
+            assert.equal(rl.question.called, true);
+        });
+    });
 
     describe('createConfig', () => {
         it('should not create a config if overwite is false', () => {
