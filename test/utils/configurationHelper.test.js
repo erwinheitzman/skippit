@@ -38,6 +38,32 @@ const stub = {
     },
     [configPath]: defaultConfig,
 };
+const answers = {
+    'tests.path': './tests',
+    'tests.formats': 'py',
+    'results.path': 'C:/path/to/results',
+    'results.formats': 'json',
+    'remote': 'https://github.com/some/repo.git',
+    'repoPath': 'C:/repo/path',
+    'maxFailures': '10'
+};
+const configBasedOnAnswers = {
+    'tests': {
+        'path': './tests',
+        'formats': [
+            'py'
+        ]
+    },
+    'results': {
+        'path': 'C:/path/to/results',
+        'formats': [
+            'json'
+        ]
+    },
+    'remote': 'https://github.com/some/repo.git',
+    'repoPath': 'C:/repo/path',
+    'maxFailures': 10
+}
 
 const configurationHelper = proxyquire('../../lib/utils/ConfigurationHelper', stub);
 
@@ -45,9 +71,18 @@ const config = configurationHelper.setupConfig();
 
 describe('configurationHelper', () => {
     describe('setupConfig', () => {
-        it('should match the default config settings if by default', () => {        
+        it('should match the default config settings if by default', () => {
             assert.deepEqual(defaultConfig, config);
         });
+
+        it('should match the answers given during the setup', () => {
+            configurationHelper.answers = answers;
+            const customConfig = configurationHelper.setupConfig();
+
+            assert.deepEqual(configBasedOnAnswers, customConfig);
+
+            configurationHelper.answers = {}
+        })
     });
 
     describe('askQuestions', () => {
@@ -92,7 +127,7 @@ describe('configurationHelper', () => {
             assert.equal(stub.fs.writeFileSync.called, 0);
         });
 
-        it('should not create a config if overwite is false', () => {
+        it('should create a config if overwite is true', () => {
             const expectedArgs = ['C:/dev/build-monitor/config.json', configAsJSONString, 'utf8'];
 
             configurationHelper.overwrite = true;
