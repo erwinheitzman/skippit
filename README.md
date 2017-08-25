@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/erwinheitzman/skippyio.svg?branch=master)](https://travis-ci.org/erwinheitzman/skippyio)
-[![codecov](https://codecov.io/gh/erwinheitzman/skippyio/branch/master/graph/badge.svg)](https://codecov.io/gh/erwinheitzman/skippyio)
+[![Build Status](https://travis-ci.org/erwinheitzman/skippit.svg?branch=master)](https://travis-ci.org/erwinheitzman/skippyio)
+[![codecov](https://codecov.io/gh/erwinheitzman/skippit/branch/master/graph/badge.svg)](https://codecov.io/gh/erwinheitzman/skippyio)
 
 SkippyIO
 ===========
