@@ -97,40 +97,107 @@ describe('configurationHelper', () => {
         });
     });
 
+    describe('parseQuestion', () => {
+        it('should wrap the question messages in color tags', () => {
+            const prefix = '\u001b[1;36m';
+            const suffix = '\u001b[0m';
+
+            const actual = configurationHelper.parseQuestion('', '');
+            const expected = prefix + suffix;
+
+            assert.equal(expected, actual);
+        });
+
+        it('should wrap the question messages in color tags and extend the question with '
+            + 'multiple answers to choose from if the questionKey equals "overwrite"', () => {
+            const prefix = '\u001b[1;36m';
+            const suffix = '\u001b[0m';
+            const choices = '\n[yes]\n[no]\n';
+
+            const actual = configurationHelper.parseQuestion('overwrite', '');
+            const expected = prefix + suffix + choices;
+
+            assert.equal(expected, actual);
+        });
+    });
+
+    describe('handleOverwrite', () => {
+        it('should restart the question process if the answer does not equal "yes"', () => {
+            const askQuestions = sinon.stub(configurationHelper, 'askQuestions');
+            const promise = new Promise((resolve) => { resolve(); });
+            askQuestions.returns(promise);
+            configurationHelper.handleOverwrite('overwrite', '');
+
+            assert.equal(askQuestions.called, true);
+
+            askQuestions.restore();
+        });
+
+        it('should do nothing if the answer equals "yes"', () => {
+            const askQuestions = sinon.stub(configurationHelper, 'askQuestions');
+            const promise = new Promise((resolve) => { resolve(); });
+            askQuestions.returns(promise);
+            configurationHelper.handleOverwrite('overwrite', 'yes');
+
+            assert.equal(askQuestions.called, false);
+
+            askQuestions.restore();
+        });
+    });
+
     describe('askQuestion', () => {
         it('should not ask for an overwrite of the config file if none exists', () => {
-            const rl = stub.readline.createInterface();
-            rl.question.reset();
             stub.fs.existsSync.returns(false);
-            configurationHelper.askQuestion('overwrite');
-
-            assert.equal(rl.question.called, false);
+            const askQuestionStub = sinon.stub(configurationHelper, 'askQuestion');
+            configurationHelper.askQuestions().then(() => {
+                assert.equal(configurationHelper.askQuestion.callCount, configurationHelper.questions.length - 1);
+            });
 
             stub.fs.existsSync.reset();
+            askQuestionStub.restore();
         });
 
         it('should ask for an overwrite of the config file if one exists', () => {
-            const rl = stub.readline.createInterface();
-            rl.question.reset();            
             stub.fs.existsSync.returns(true);
-            configurationHelper.askQuestion('overwrite');
+            const askQuestionStub = sinon.stub(configurationHelper, 'askQuestion');
+            configurationHelper.askQuestions().then(() => {
+                assert.equal(configurationHelper.askQuestion.callCount, configurationHelper.questions.length);
+            });
 
-            assert.equal(rl.question.called, true);
+            stub.fs.existsSync.reset();
+            askQuestionStub.restore();
+        });
+
+        it('should not overwrite the current config if the data param equals "no"', () => {
+            stub.fs.writeFileSync.reset();
+            configurationHelper.answers.overwrite = 'no';
+            configurationHelper.createConfig();
+
+            assert.equal(stub.fs.writeFileSync.called, false);
+        });
+    });
+
+    describe('storeAnswer', () => {
+        it('should store the answer in the answers object with the questionKey as object key', () => {
+            configurationHelper.answers = {};
+            configurationHelper.storeAnswer('dummy key', 'dummy data');
+
+            assert.deepEqual({ 'dummy key': 'dummy data' }, configurationHelper.answers);
         });
     });
 
     describe('createConfig', () => {
-        it('should not create a config if overwite is false', () => {
-            configurationHelper.overwrite = false;
+        it('should not create a config if answers.overwite is "no"', () => {
+            configurationHelper.answers.overwrite = 'no';
             configurationHelper.createConfig();
             
-            assert.equal(stub.fs.writeFileSync.called, 0);
+            assert.equal(stub.fs.writeFileSync.called, false);
         });
 
-        it('should create a config if overwite is true', () => {
+        it('should create a config if answers.overwite is "yes"', () => {
             const expectedArgs = ['C:/dev/build-monitor/config.json', configAsJSONString, 'utf8'];
 
-            configurationHelper.overwrite = true;
+            configurationHelper.answers.overwrite = 'yes';
             configurationHelper.createConfig();
 
             assert.deepEqual(stub.fs.writeFileSync.getCall(0).args, expectedArgs);
