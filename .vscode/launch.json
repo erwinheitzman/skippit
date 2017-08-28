@@ -8,7 +8,8 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceRoot}\\skippyio.js"
+            "program": "${workspaceRoot}\\skippit.js",
+            "args": ["config"]
         },
         {
             "name": "Run Tests",
