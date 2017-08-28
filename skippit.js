@@ -4,7 +4,7 @@ const logger = require('./lib/Logger');
 require('./lib/utils/ConfigurationHelper')
     .init()
     .then(() => {
-        gitHandler.disableTestsAndPushChanges(() => {
+        gitHandler.cloneRepoThenPushChanges(() => {
             logger.createLogFile();
         });
     });
