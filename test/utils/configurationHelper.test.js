@@ -5,39 +5,6 @@ const sinon = require('sinon');
 const setupQuestions = require('../../lib/utils/setupQuestions.js');
 const configPath = path.join(__dirname, '../../config.json');
 const defaultConfig = require('../../lib/utils/defaultConfig.js');
-const configAsJSONString = '{\n'
-+ '    "tests": {\n'
-+ '        "path": "./tests",\n'
-+ '        "formats": [\n'
-+ '            "js"\n'
-+ '        ]\n'
-+ '    },\n'
-+ '    "results": {\n'
-+ '        "path": "C:/dev/temp_repo/results",\n'
-+ '        "formats": [\n'
-+ '            "xml"\n'
-+ '        ]\n'
-+ '    },\n'
-+ '    "remote": "https://github.com/host/repository.git",\n'
-+ '    "repoPath": "C:/dev/temp_repo",\n'
-+ '    "maxFailures": 3\n'
-+ '}'
-const stub = {
-    fs: {
-        existsSync: sinon.stub(),
-        writeFileSync: sinon.stub()
-    },
-    path: {
-        join: sinon.stub().returns('C:/dev/build-monitor/config.json')
-    },
-    readline: {
-        createInterface: sinon.stub().returns({
-            question: sinon.stub(),
-            write: sinon.stub()
-        })
-    },
-    [configPath]: defaultConfig,
-};
 const answers = {
     'tests.path': './tests',
     'tests.formats': 'py',
@@ -63,13 +30,52 @@ const configBasedOnAnswers = {
     'remote': 'https://github.com/some/repo.git',
     'repoPath': 'C:/repo/path',
     'maxFailures': 10
-}
-
-const configurationHelper = proxyquire('../../lib/utils/ConfigurationHelper', stub);
-
-const config = configurationHelper.setupConfig();
+};
+const configAsJSONString = '{\n'
++ '    "tests": {\n'
++ '        "path": "./tests",\n'
++ '        "formats": [\n'
++ '            "js"\n'
++ '        ]\n'
++ '    },\n'
++ '    "results": {\n'
++ '        "path": "C:/dev/temp_repo/results",\n'
++ '        "formats": [\n'
++ '            "xml"\n'
++ '        ]\n'
++ '    },\n'
++ '    "remote": "https://github.com/host/repository.git",\n'
++ '    "repoPath": "C:/dev/temp_repo",\n'
++ '    "maxFailures": 3\n'
++ '}';
 
 describe('configurationHelper', () => {
+    let stub, configurationHelper, config, promise;
+
+    beforeEach(() => {
+        stub = {
+            fs: {
+                existsSync: sinon.stub(),
+                writeFileSync: sinon.stub()
+            },
+            path: {
+                join: sinon.stub().returns('C:/dev/build-monitor/config.json')
+            },
+            readline: {
+                createInterface: sinon.stub().returns({
+                    question: sinon.stub(),
+                    write: sinon.stub()
+                })
+            },
+            [configPath]: defaultConfig,
+        };
+
+        configurationHelper = proxyquire('../../lib/utils/ConfigurationHelper', stub);
+        config = configurationHelper.setupConfig();
+        configurationHelper.askQuestion = sinon.stub();
+        promise = new Promise((resolve) => { resolve(); });
+    });
+
     describe('setupConfig', () => {
         it('should match the default config settings if by default', () => {
             assert.deepEqual(defaultConfig, config);
@@ -87,13 +93,9 @@ describe('configurationHelper', () => {
 
     describe('askQuestions', () => {
         it('should call askQuestion once for each question', () => {
-            const askQuestionStub = sinon.stub(configurationHelper, 'askQuestion');
-
             configurationHelper.askQuestions().then(() => {
                 assert.equal(configurationHelper.askQuestion.callCount, Object.keys(setupQuestions).length);
             });
-
-            askQuestionStub.restore();
         });
     });
 
@@ -123,53 +125,38 @@ describe('configurationHelper', () => {
 
     describe('handleOverwrite', () => {
         it('should restart the question process if the answer does not equal "yes"', () => {
-            const askQuestions = sinon.stub(configurationHelper, 'askQuestions');
-            const promise = new Promise((resolve) => { resolve(); });
-            askQuestions.returns(promise);
+            configurationHelper.askQuestions = sinon.stub().returns(promise);
             configurationHelper.handleOverwrite('overwrite', '');
 
-            assert.equal(askQuestions.called, true);
-
-            askQuestions.restore();
+            assert.equal(configurationHelper.askQuestions.called, true);
         });
 
         it('should do nothing if the answer equals "yes"', () => {
-            const askQuestions = sinon.stub(configurationHelper, 'askQuestions');
-            const promise = new Promise((resolve) => { resolve(); });
-            askQuestions.returns(promise);
+            configurationHelper.askQuestions = sinon.stub().returns(promise);
             configurationHelper.handleOverwrite('overwrite', 'yes');
 
-            assert.equal(askQuestions.called, false);
-
-            askQuestions.restore();
+            assert.equal(configurationHelper.askQuestions.called, false);
         });
     });
 
     describe('askQuestion', () => {
         it('should not ask for an overwrite of the config file if none exists', () => {
             stub.fs.existsSync.returns(false);
-            const askQuestionStub = sinon.stub(configurationHelper, 'askQuestion');
+
             configurationHelper.askQuestions().then(() => {
                 assert.equal(configurationHelper.askQuestion.callCount, configurationHelper.questions.length - 1);
             });
-
-            stub.fs.existsSync.reset();
-            askQuestionStub.restore();
         });
 
         it('should ask for an overwrite of the config file if one exists', () => {
             stub.fs.existsSync.returns(true);
-            const askQuestionStub = sinon.stub(configurationHelper, 'askQuestion');
+
             configurationHelper.askQuestions().then(() => {
                 assert.equal(configurationHelper.askQuestion.callCount, configurationHelper.questions.length);
             });
-
-            stub.fs.existsSync.reset();
-            askQuestionStub.restore();
         });
 
         it('should not overwrite the current config if the data param equals "no"', () => {
-            stub.fs.writeFileSync.reset();
             configurationHelper.answers.overwrite = 'no';
             configurationHelper.createConfig();
 
@@ -196,7 +183,6 @@ describe('configurationHelper', () => {
 
         it('should create a config if answers.overwite is "yes"', () => {
             const expectedArgs = ['C:/dev/build-monitor/config.json', configAsJSONString, 'utf8'];
-
             configurationHelper.answers.overwrite = 'yes';
             configurationHelper.createConfig();
 
@@ -205,23 +191,20 @@ describe('configurationHelper', () => {
     });
 
     describe('init', () => {
-        process.argv = [
-            'C:\\Program Files\\nodejs\\node.exe',
-            'C:\\dev\\build-monitor\\skippit.js',
-        ];
+        process.argv = ['C:\\Program Files\\nodejs\\node.exe', 'C:\\dev\\build-monitor\\skippit.js'];
 
         it('should not start the process of creating a config file if the config param is missing', () => {
-            configurationHelper.askQuestions = sinon.stub().returns(new Promise((resolve) => resolve()));
+            configurationHelper.askQuestions = sinon.stub().returns(promise);
 
             configurationHelper.init();
             assert.equal(configurationHelper.askQuestions.called, false);
         });
 
         it('should start the process of creating a config file if the config param is given', () => {
-            configurationHelper.askQuestions = sinon.stub().returns(new Promise((resolve) => resolve()));
+            configurationHelper.askQuestions = sinon.stub().returns(promise);
             process.argv.push('config');
-
             configurationHelper.init();
+
             assert.equal(configurationHelper.askQuestions.called, true);
         });
     });
