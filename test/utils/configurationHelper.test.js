@@ -2,6 +2,8 @@ const path = require('path');
 const assert = require('assert');
 const proxyquire = require('proxyquire');
 const sinon = require('sinon');
+const expect = require('chai').expect
+
 const setupQuestions = require('../../lib/utils/setupQuestions.js');
 const configPath = path.join(__dirname, '../../config.json');
 const defaultConfig = require('../../lib/utils/defaultConfig.js');
@@ -91,14 +93,6 @@ describe('configurationHelper', () => {
         })
     });
 
-    describe('askQuestions', () => {
-        it('should call askQuestion once for each question', () => {
-            configurationHelper.askQuestions().then(() => {
-                assert.equal(configurationHelper.askQuestion.callCount, Object.keys(setupQuestions).length);
-            });
-        });
-    });
-
     describe('parseQuestion', () => {
         it('should wrap the question messages in color tags', () => {
             const prefix = '\u001b[1;36m';
@@ -140,20 +134,22 @@ describe('configurationHelper', () => {
     });
 
     describe('askQuestion', () => {
-        it('should not ask for an overwrite of the config file if none exists', () => {
+        it('should not ask for an overwrite of the config file if none exists', async () => {
             stub.fs.existsSync.returns(false);
 
-            configurationHelper.askQuestions().then(() => {
-                assert.equal(configurationHelper.askQuestion.callCount, configurationHelper.questions.length - 1);
-            });
+            await configurationHelper.askQuestions();
+
+            // should call askQuestion once for each question minus the overwrite question
+            expect(configurationHelper.askQuestion.callCount).to.equal(Object.keys(setupQuestions).length - 1);
         });
 
-        it('should ask for an overwrite of the config file if one exists', () => {
+        it('should ask for an overwrite of the config file if one exists', async () => {
             stub.fs.existsSync.returns(true);
 
-            configurationHelper.askQuestions().then(() => {
-                assert.equal(configurationHelper.askQuestion.callCount, configurationHelper.questions.length);
-            });
+            await configurationHelper.askQuestions();
+
+            // should call askQuestion once for each question
+            expect(configurationHelper.askQuestion.callCount).to.equal(Object.keys(setupQuestions).length);
         });
 
         it('should not overwrite the current config if the data param equals "no"', () => {
