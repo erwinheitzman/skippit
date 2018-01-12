@@ -2,7 +2,6 @@
 node_modules/
 
 # nyc coverage directories
-.nyc_output/
 coverage/
 
 # logs
