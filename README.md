@@ -1,12 +1,12 @@
-[![Build Status](https://travis-ci.org/erwinheitzman/skippit.svg?branch=master)](https://travis-ci.org/erwinheitzman/skippyio)
-[![codecov](https://codecov.io/gh/erwinheitzman/skippit/branch/master/graph/badge.svg)](https://codecov.io/gh/erwinheitzman/skippyio)
+[![Build Status](https://travis-ci.org/erwinheitzman/skippit.svg?branch=master)](https://travis-ci.org/erwinheitzman/skippit)
+[![codecov](https://codecov.io/gh/erwinheitzman/skippit/branch/master/graph/badge.svg)](https://codecov.io/gh/erwinheitzman/skippit)
 
-SkippyIO
+Skippit
 ===========
 
 **Test management tool**
 
-SkippyIO is created to allow for a easy to manage solution for managing failing tests.
+Skippit is created to allow for a easy to manage solution for managing failing tests.
 
 - **Easy setup.**
 - **Manage failing tests using treshold.**
@@ -14,7 +14,7 @@ SkippyIO is created to allow for a easy to manage solution for managing failing 
 ## Installation
 
 ```shell
-npm install -g skippyio
+npm install -g skippit
 ```
 
 ## Getting started
