@@ -81,15 +81,12 @@ describe('sourceControlHandler', () => {
         describe('cloneRepoThenPushChanges', () => {
             it('should call it\'s callback function', () => {
                 const cloneRepoThenPushChanges = sinon.stub(proxyFile.gitHandler, 'cloneRepoThenPushChanges');
-                const logSuccessThenDisableTests = sinon.stub(proxyFile.gitHandler, 'logSuccessThenDisableTests');
     
                 cloneRepoThenPushChanges(
                     proxyFile.gitHandler.remote,
                     proxyFile.gitHandler.pathToRepo,
-                    logSuccessThenDisableTests(callback)
                 );
     
-                assert.equal(logSuccessThenDisableTests.called, true);
                 assert.equal(callback.called, false);
             });
         });
