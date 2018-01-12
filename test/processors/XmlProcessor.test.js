@@ -2,8 +2,8 @@ const assert = require('assert');
 const proxyquire = require('proxyquire');
 const sinon = require('sinon');
 
-const XmlProcessorStub = {
-    './Results': {
+const xmlProcessorStub = {
+    '../Results': {
         get: sinon.stub().returns([
             'C:/dev/temp_repo/results/results_01.xml',
             'C:/dev/temp_repo/results/results_02.xml',
@@ -38,12 +38,12 @@ const XmlProcessorStub = {
     }
 };
 
-describe('XmlProcessor.processFiles', () => {
+describe('xmlProcessor.processFiles', () => {
     it('should return an object containing the only the failed tests and the times they failed', () => {
-        const XmlProcessor = proxyquire.noCallThru()
-            .load('../lib/XmlProcessor', XmlProcessorStub);
+        const xmlProcessor = proxyquire.noCallThru()
+            .load('../../lib/processors/XmlProcessor', xmlProcessorStub);
 
-        assert.deepEqual(XmlProcessor.processFiles(), {
+        assert.deepEqual(xmlProcessor.processFiles(), {
             'AFailingTest': { failed: 8 },
             '21598 - AFailingTest': { failed: 12 }
         });

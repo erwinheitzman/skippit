@@ -70,7 +70,7 @@ describe('Tests', () => {
                 writeFile: sinon.stub()
             },
             './Files': { get: sinon.stub().returns(files) },
-            './XmlProcessor': { processFiles: sinon.stub() },
+            './processors/XmlProcessor': { processFiles: sinon.stub() },
             './Logger': { disabledTests: sinon.stub() }
         };
 
@@ -87,7 +87,8 @@ describe('Tests', () => {
     describe('disable', () => {
         it('should return name of the test to disable and the test file content', () => {
             testStub.fs.readFile.yields(null, file);
-            testStub['./XmlProcessor'].processFiles.returns({ [failingTest]: { failed: 4 } });
+            testStub['./processors/XmlProcessor'].processFiles
+                .returns({ [failingTest]: { failed: 4 } });
             tests.disable(disableCallback);
     
             assert.equal(testStub.fs.writeFile.getCall(3).args[0], files[3]);
@@ -98,7 +99,8 @@ describe('Tests', () => {
             it('should pass the error to the callback and throw the error', () => {
                 testStub.fs.readFile.yields(null, file);
                 testStub.fs.writeFile.yields('this is dummy error 1');
-                testStub['./XmlProcessor'].processFiles.returns({ [failingTest]: { failed: 4 } });
+                testStub['./processors/XmlProcessor'].processFiles
+                    .returns({ [failingTest]: { failed: 4 } });
     
                 assert.throws(() => tests.disable(disableCallback), /this is dummy error 1/);
             });
@@ -107,7 +109,8 @@ describe('Tests', () => {
         describe('when fs.readFile returns an error', () => {
             it('should pass the error to the callback and throw the error', () => {
                 testStub.fs.readFile.yields('this is dummy error 2');
-                testStub['./XmlProcessor'].processFiles.returns({ [failingTest]: { failed: 4 } });
+                testStub['./processors/XmlProcessor'].processFiles
+                    .returns({ [failingTest]: { failed: 4 } });
     
                 assert.throws(() => tests.disable(disableCallback), /this is dummy error 2/);
                 assert.equal(testStub.fs.writeFile.notCalled, true);

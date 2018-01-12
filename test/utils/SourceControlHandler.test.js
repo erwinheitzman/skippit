@@ -77,13 +77,6 @@ describe('sourceControlHandler', () => {
         });
     });
 
-
-    describe('remote', () => {
-        it('should match the remote property of the default config', () => {
-            assert.equal(proxyFile.sourceControlHandler.remote, stub['./getConfig'].remote);
-        });
-    });
-
     describe('gitHandler', () => {
         describe('cloneRepoThenPushChanges', () => {
             it('should call it\'s callback function', () => {
@@ -101,24 +94,5 @@ describe('sourceControlHandler', () => {
             });
         });
 
-        describe('logSuccessThenDisableTests', () => {
-            it('should call Tests.disable which should then call it\'s callback function', () => {
-                proxyFile.gitHandler.logSuccessThenDisableTests(callback);
-
-                assert.equal(stub['../Tests'].disable.called, true);
-                assert.equal(callback.called, false);
-            });
-        });
-
-        describe('logSuccesThenProcessChanges', () => {
-            it('should call simple-git which should then call it\'s callback function', () => {
-                proxyFile.gitHandler.logSuccesThenProcessChanges(callback);
-
-                assert.equal(simpleGit.add.called, true);
-                assert.equal(simpleGit.commit.called, true);
-                assert.equal(simpleGit.push.called, true);
-                assert.equal(callback.called, true);
-            });
-        });
     });
 });
