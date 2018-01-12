@@ -58,7 +58,7 @@ describe('Tests', () => {
 
     beforeEach(() => {
         testStub = {
-            './utils/getConfig': {
+            '../config': {
                 tests: {
                     path: 'path/to/tests',
                     formats: ['js']
@@ -67,7 +67,8 @@ describe('Tests', () => {
             },
             'fs': {
                 readFile: sinon.stub(),
-                writeFile: sinon.stub()
+                writeFile: sinon.stub(),
+                existsSync: sinon.stub().returns(true)
             },
             './Files': { get: sinon.stub().returns(files) },
             './processors/XmlProcessor': { processFiles: sinon.stub() },

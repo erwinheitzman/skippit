@@ -12,7 +12,14 @@ describe('Results.get', () => {
 
     it('should return the files it receives from Files.get', () => {
         const Results = proxyquire('../lib/Results', { './Files': { get: sinon.stub().returns(files) } });
+        const configStub = {
+            results: {
+                path: '',
+                formats: []
+            }
+        };
 
-        assert.deepEqual(Results.get(), files);
+
+        assert.deepEqual(Results.get(configStub), files);
     });
 });
