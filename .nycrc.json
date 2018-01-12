@@ -4,5 +4,7 @@
         "text-summary"
     ],
     "cache": true,
-    "all": true
+    "all": true,
+    "temp-directory": "./coverage/.nyc-output",
+    "report-dir": "./coverage"
 }
