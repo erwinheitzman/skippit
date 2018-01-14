@@ -63,7 +63,8 @@ describe('Tests', () => {
                     path: 'path/to/tests',
                     formats: ['js']
                 },
-                repoPath: 'path/to/repo'
+                repoPath: 'path/to/repo',
+                maxFailures: 3
             },
             'fs': {
                 readFile: sinon.stub(),
@@ -71,8 +72,7 @@ describe('Tests', () => {
                 existsSync: sinon.stub().returns(true)
             },
             './Files': { get: sinon.stub().returns(files) },
-            './processors/XmlProcessor': { processFiles: sinon.stub() },
-            './Logger': { disabledTests: sinon.stub() }
+            './processors/XmlProcessor': { processFiles: sinon.stub() }
         };
 
         tests = proxyquire.noCallThru().load('../lib/Tests', testStub);
@@ -90,6 +90,7 @@ describe('Tests', () => {
             testStub.fs.readFile.yields(null, file);
             testStub['./processors/XmlProcessor'].processFiles
                 .returns({ [failingTest]: { failed: 4 } });
+
             tests.disable(disableCallback);
     
             assert.equal(testStub.fs.writeFile.getCall(3).args[0], files[3]);

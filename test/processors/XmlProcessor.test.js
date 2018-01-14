@@ -48,11 +48,9 @@ describe('xmlProcessor.processFiles', () => {
 
         const actual = xmlProcessor.processFiles();
         const expected = {
-            'foo3 - AFailingTest': { failed: 8 },
-            'foo89 - 21598 - AFailingTest': { failed: 12 },
-            'foo90 - 21598 - AFailingTest': { failed: 4 }
+            'AFailingTest': { failed: 8 },
+            '21598 - AFailingTest': { failed: 16 }
         };
-console.log('actual: ', actual);
 
         assert.deepEqual(actual, expected);
     });
