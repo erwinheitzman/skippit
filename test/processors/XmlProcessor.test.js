@@ -32,6 +32,9 @@ const xmlProcessorStub = {
             + '    <testcase classname="foo89" name="21598 - AFailingTest">'
             + '      <failure type="NotEnoughFoozst"> details about failure </failure>'
             + '    </testcase>'
+            + '    <testcase classname="foo90" name="21598 - AFailingTest">'
+            + '      <failure type="NotEnoughFoozst"> details about failure </failure>'
+            + '    </testcase>'
             + '  </testsuite>'
             + '</testsuites>'
         )
@@ -43,9 +46,14 @@ describe('xmlProcessor.processFiles', () => {
         const xmlProcessor = proxyquire.noCallThru()
             .load('../../lib/processors/XmlProcessor', xmlProcessorStub);
 
-        assert.deepEqual(xmlProcessor.processFiles(), {
-            'AFailingTest': { failed: 8 },
-            '21598 - AFailingTest': { failed: 12 }
-        });
+        const actual = xmlProcessor.processFiles();
+        const expected = {
+            'foo3 - AFailingTest': { failed: 8 },
+            'foo89 - 21598 - AFailingTest': { failed: 12 },
+            'foo90 - 21598 - AFailingTest': { failed: 4 }
+        };
+console.log('actual: ', actual);
+
+        assert.deepEqual(actual, expected);
     });
 });

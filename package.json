@@ -1,6 +1,6 @@
 {
   "name": "selenium-build-monitor",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,7 @@
     "nyc": "^11.4.1",
     "proxyquire": "^1.8.0",
     "simple-git": "^1.85.0",
-    "sinon": "^4.1.4",
-    "xmldoc": "0.5.1"
+    "sinon": "^4.1.5",
+    "xmldoc": "^1.1.0"
   }
 }
