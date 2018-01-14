@@ -28,7 +28,8 @@ describe('sourceControlHandler', () => {
             path: {
                 isAbsolute: sinon.stub(),
                 normalize: sinon.stub(),
-                resolve: sinon.stub()
+                resolve: sinon.stub(),
+                join: sinon.stub()
             },
             fs: {
                 existsSync: sinon.stub(),
@@ -84,7 +85,7 @@ describe('sourceControlHandler', () => {
     
                 cloneRepoThenPushChanges(
                     proxyFile.gitHandler.remote,
-                    proxyFile.gitHandler.pathToRepo,
+                    proxyFile.gitHandler.pathToRepo
                 );
     
                 assert.equal(callback.called, false);
