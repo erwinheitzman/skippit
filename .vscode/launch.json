@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceRoot}\\skippit.js",
+            "program": "${workspaceRoot}\\index.js",
             "args": ["config"]
         },
         {
