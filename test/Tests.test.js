@@ -63,6 +63,10 @@ describe('Tests', () => {
                     path: 'path/to/tests',
                     formats: ['js']
                 },
+                results: {
+                    path: 'path/to/results',
+                    formats: ['xml']
+                },
                 repoPath: 'path/to/repo',
                 maxFailures: 3
             },
