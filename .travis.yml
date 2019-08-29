@@ -9,7 +9,7 @@ os:
   - linux
 
 install:
-  - npm install jest ts-jest eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser
+  - npm i --only=dev
 
 script:
   - npm test
