@@ -37,7 +37,6 @@ test('should throw if the tests path does not exist', () => {
 
 beforeAll(() => {
 	originalState = readFileSync(file, 'utf8');
-	console.log(originalState);
 });
 
 beforeEach(() => {
@@ -62,6 +61,5 @@ afterEach(() => {
 
 function disableTestsAndReturnMatches() {
 	disable(config);
-	console.log(readFileSync(file, 'utf8'));
 	return readFileSync(file, 'utf8').match(/[it|test].skip/g) || [];
 }
