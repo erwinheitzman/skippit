@@ -13,9 +13,6 @@ dist/
 # generated test code
 .tmp/
 
-# logs
-# disabled*
-
 # config
 config.json
 
