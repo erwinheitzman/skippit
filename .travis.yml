@@ -9,7 +9,7 @@ os:
   - linux
 
 install:
-  - npm i --only=dev
+  - npm i
 
 script:
   - npm test
