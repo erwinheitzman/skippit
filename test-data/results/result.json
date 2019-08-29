@@ -1,0 +1,360 @@
+{
+  "start": "2019-08-27T12:25:27.698Z",
+  "end": "2019-08-27T12:25:53.091Z",
+  "capabilities": {
+      "acceptInsecureCerts": false,
+      "browserName": "chrome",
+      "browserVersion": "76.0.3809.87",
+      "chrome": {
+          "chromedriverVersion": "76.0.3809.68 (420c9498db8ce8fcd190a954d51297672c1515d5-refs/branch-heads/3809@{#864})",
+          "userDataDir": "/var/folders/dg/_cs_d_g13nl2_k0pxq7m4ng00000gn/T/.com.google.Chrome.27BEE4"
+      },
+      "goog:chromeOptions": {
+          "debuggerAddress": "localhost:49810"
+      },
+      "networkConnectionEnabled": false,
+      "pageLoadStrategy": "normal",
+      "platformName": "mac os x",
+      "proxy": {},
+      "setWindowRect": true,
+      "strictFileInteractability": false,
+      "timeouts": {
+          "implicit": 0,
+          "pageLoad": 300000,
+          "script": 30000
+      },
+      "unhandledPromptBehavior": "dismiss and notify"
+  },
+  "host": "127.0.0.1",
+  "port": 9515,
+  "baseUrl": "http://todomvc.com",
+  "framework": "mocha",
+  "mochaOpts": {
+      "timeout": 60000,
+      "ui": "bdd"
+  },
+  "suites": [
+      {
+          "name": "todo app",
+          "duration": 25311,
+          "start": "2019-08-27T12:25:27.721Z",
+          "end": "2019-08-27T12:25:53.032Z",
+          "sessionId": "ca6d315b5a86eb549b49d3ea4e312008",
+          "tests": [
+              {
+                  "name": "create todo",
+                  "start": "2019-08-27T12:25:28.429Z",
+                  "end": "2019-08-27T12:25:28.744Z",
+                  "duration": 315,
+                  "state": "passed"
+              },
+              {
+                  "name": "edit todo",
+                  "start": "2019-08-27T12:25:28.744Z",
+                  "end": "2019-08-27T12:25:29.202Z",
+                  "duration": 458,
+                  "state": "passed"
+              },
+              {
+                  "name": "delete todo",
+                  "start": "2019-08-27T12:25:29.202Z",
+                  "end": "2019-08-27T12:25:29.704Z",
+                  "duration": 502,
+                  "state": "passed"
+              },
+              {
+                  "name": "complete one todo",
+                  "start": "2019-08-27T12:25:29.704Z",
+                  "end": "2019-08-27T12:25:30.101Z",
+                  "duration": 397,
+                  "state": "passed"
+              },
+              {
+                  "name": "show active/completed todos",
+                  "start": "2019-08-27T12:25:30.101Z",
+                  "end": "2019-08-27T12:25:30.637Z",
+                  "duration": 536,
+                  "state": "passed"
+              },
+              {
+                  "name": "complete all todos",
+                  "start": "2019-08-27T12:25:30.637Z",
+                  "end": "2019-08-27T12:25:41.065Z",
+                  "duration": 10428,
+                  "state": "failed",
+                  "errorType": "Error",
+                  "error": "waitUntil condition failed with the following reason: Can't call getAttribute on element with selector \"li=first todo\" because element wasn't found",
+                  "standardError": "Error: waitUntil condition failed with the following reason: Can't call getAttribute on element with selector \"li=first todo\" because element wasn't found\n    at Context.it (/Users/erwinheitzman/Documents/detesters/workshops/testautomationdays 2019/wdio-workshop-testautomationdays-2019/test/specs/todo.spec.js:127:17)"
+              },
+              {
+                  "name": "complete all todos",
+                  "start": "2019-08-27T12:25:30.637Z",
+                  "end": "2019-08-27T12:25:41.065Z",
+                  "duration": 10428,
+                  "state": "failed",
+                  "errorType": "Error",
+                  "error": "waitUntil condition failed with the following reason: Can't call getAttribute on element with selector \"li=first todo\" because element wasn't found",
+                  "standardError": "Error: waitUntil condition failed with the following reason: Can't call getAttribute on element with selector \"li=first todo\" because element wasn't found\n    at Context.it (/Users/erwinheitzman/Documents/detesters/workshops/testautomationdays 2019/wdio-workshop-testautomationdays-2019/test/specs/todo.spec.js:127:17)"
+              },
+              {
+                  "name": "delete all completed todos",
+                  "start": "2019-08-27T12:25:41.605Z",
+                  "end": "2019-08-27T12:25:52.099Z",
+                  "duration": 10494,
+                  "state": "failed",
+                  "errorType": "Error",
+                  "error": "waitUntil condition timed out after 10000ms",
+                  "standardError": "Error: waitUntil condition timed out after 10000ms\n    at Context.it (/Users/erwinheitzman/Documents/detesters/workshops/testautomationdays 2019/wdio-workshop-testautomationdays-2019/test/specs/todo.spec.js:148:17)"
+              },
+              {
+                  "name": "add custom command to the Browser object",
+                  "start": "2019-08-27T12:25:52.589Z",
+                  "end": "2019-08-27T12:25:52.823Z",
+                  "duration": 234,
+                  "state": "passed"
+              },
+              {
+                  "name": "add custom command to the Element object",
+                  "start": "2019-08-27T12:25:52.823Z",
+                  "end": "2019-08-27T12:25:53.032Z",
+                  "duration": 209,
+                  "state": "passed"
+              }
+          ],
+          "hooks": [
+              {
+                  "start": "2019-08-27T12:25:27.721Z",
+                  "end": "2019-08-27T12:25:28.429Z",
+                  "duration": 708,
+                  "title": "\"before all\" hook",
+                  "associatedSuite": "todo app",
+                  "state": "passed"
+              },
+              {
+                  "start": "2019-08-27T12:25:28.430Z",
+                  "end": "2019-08-27T12:25:28.430Z",
+                  "duration": 0,
+                  "title": "\"before each\" hook",
+                  "associatedSuite": "",
+                  "state": "passed"
+              },
+              {
+                  "start": "2019-08-27T12:25:28.430Z",
+                  "end": "2019-08-27T12:25:28.565Z",
+                  "duration": 135,
+                  "title": "\"before each\" hook",
+                  "associatedSuite": "todo app",
+                  "state": "passed"
+              },
+              {
+                  "start": "2019-08-27T12:25:28.744Z",
+                  "end": "2019-08-27T12:25:28.744Z",
+                  "duration": 0,
+                  "title": "\"after each\" hook",
+                  "associatedSuite": "",
+                  "state": "passed"
+              },
+              {
+                  "start": "2019-08-27T12:25:28.744Z",
+                  "end": "2019-08-27T12:25:28.745Z",
+                  "duration": 1,
+                  "title": "\"before each\" hook",
+                  "associatedSuite": "",
+                  "state": "passed"
+              },
+              {
+                  "start": "2019-08-27T12:25:28.745Z",
+                  "end": "2019-08-27T12:25:28.906Z",
+                  "duration": 161,
+                  "title": "\"before each\" hook",
+                  "associatedSuite": "todo app",
+                  "state": "passed"
+              },
+              {
+                  "start": "2019-08-27T12:25:29.202Z",
+                  "end": "2019-08-27T12:25:29.202Z",
+                  "duration": 0,
+                  "title": "\"after each\" hook",
+                  "associatedSuite": "",
+                  "state": "passed"
+              },
+              {
+                  "start": "2019-08-27T12:25:29.202Z",
+                  "end": "2019-08-27T12:25:29.202Z",
+                  "duration": 0,
+                  "title": "\"before each\" hook",
+                  "associatedSuite": "",
+                  "state": "passed"
+              },
+              {
+                  "start": "2019-08-27T12:25:29.202Z",
+                  "end": "2019-08-27T12:25:29.382Z",
+                  "duration": 180,
+                  "title": "\"before each\" hook",
+                  "associatedSuite": "todo app",
+                  "state": "passed"
+              },
+              {
+                  "start": "2019-08-27T12:25:29.704Z",
+                  "end": "2019-08-27T12:25:29.704Z",
+                  "duration": 0,
+                  "title": "\"after each\" hook",
+                  "associatedSuite": "",
+                  "state": "passed"
+              },
+              {
+                  "start": "2019-08-27T12:25:29.705Z",
+                  "end": "2019-08-27T12:25:29.705Z",
+                  "duration": 0,
+                  "title": "\"before each\" hook",
+                  "associatedSuite": "",
+                  "state": "passed"
+              },
+              {
+                  "start": "2019-08-27T12:25:29.705Z",
+                  "end": "2019-08-27T12:25:29.884Z",
+                  "duration": 179,
+                  "title": "\"before each\" hook",
+                  "associatedSuite": "todo app",
+                  "state": "passed"
+              },
+              {
+                  "start": "2019-08-27T12:25:30.101Z",
+                  "end": "2019-08-27T12:25:30.101Z",
+                  "duration": 0,
+                  "title": "\"after each\" hook",
+                  "associatedSuite": "",
+                  "state": "passed"
+              },
+              {
+                  "start": "2019-08-27T12:25:30.101Z",
+                  "end": "2019-08-27T12:25:30.102Z",
+                  "duration": 1,
+                  "title": "\"before each\" hook",
+                  "associatedSuite": "",
+                  "state": "passed"
+              },
+              {
+                  "start": "2019-08-27T12:25:30.102Z",
+                  "end": "2019-08-27T12:25:30.274Z",
+                  "duration": 172,
+                  "title": "\"before each\" hook",
+                  "associatedSuite": "todo app",
+                  "state": "passed"
+              },
+              {
+                  "start": "2019-08-27T12:25:30.637Z",
+                  "end": "2019-08-27T12:25:30.637Z",
+                  "duration": 0,
+                  "title": "\"after each\" hook",
+                  "associatedSuite": "",
+                  "state": "passed"
+              },
+              {
+                  "start": "2019-08-27T12:25:30.637Z",
+                  "end": "2019-08-27T12:25:30.637Z",
+                  "duration": 0,
+                  "title": "\"before each\" hook",
+                  "associatedSuite": "",
+                  "state": "passed"
+              },
+              {
+                  "start": "2019-08-27T12:25:30.637Z",
+                  "end": "2019-08-27T12:25:30.799Z",
+                  "duration": 162,
+                  "title": "\"before each\" hook",
+                  "associatedSuite": "todo app",
+                  "state": "passed"
+              },
+              {
+                  "start": "2019-08-27T12:25:41.066Z",
+                  "end": "2019-08-27T12:25:41.605Z",
+                  "duration": 539,
+                  "title": "\"after each\" hook",
+                  "associatedSuite": "",
+                  "state": "passed"
+              },
+              {
+                  "start": "2019-08-27T12:25:41.606Z",
+                  "end": "2019-08-27T12:25:41.606Z",
+                  "duration": 0,
+                  "title": "\"before each\" hook",
+                  "associatedSuite": "",
+                  "state": "passed"
+              },
+              {
+                  "start": "2019-08-27T12:25:41.606Z",
+                  "end": "2019-08-27T12:25:41.791Z",
+                  "duration": 185,
+                  "title": "\"before each\" hook",
+                  "associatedSuite": "todo app",
+                  "state": "passed"
+              },
+              {
+                  "start": "2019-08-27T12:25:52.099Z",
+                  "end": "2019-08-27T12:25:52.589Z",
+                  "duration": 490,
+                  "title": "\"after each\" hook",
+                  "associatedSuite": "",
+                  "state": "passed"
+              },
+              {
+                  "start": "2019-08-27T12:25:52.589Z",
+                  "end": "2019-08-27T12:25:52.590Z",
+                  "duration": 1,
+                  "title": "\"before each\" hook",
+                  "associatedSuite": "",
+                  "state": "passed"
+              },
+              {
+                  "start": "2019-08-27T12:25:52.590Z",
+                  "end": "2019-08-27T12:25:52.763Z",
+                  "duration": 173,
+                  "title": "\"before each\" hook",
+                  "associatedSuite": "todo app",
+                  "state": "passed"
+              },
+              {
+                  "start": "2019-08-27T12:25:52.823Z",
+                  "end": "2019-08-27T12:25:52.823Z",
+                  "duration": 0,
+                  "title": "\"after each\" hook",
+                  "associatedSuite": "",
+                  "state": "passed"
+              },
+              {
+                  "start": "2019-08-27T12:25:52.823Z",
+                  "end": "2019-08-27T12:25:52.823Z",
+                  "duration": 0,
+                  "title": "\"before each\" hook",
+                  "associatedSuite": "",
+                  "state": "passed"
+              },
+              {
+                  "start": "2019-08-27T12:25:52.823Z",
+                  "end": "2019-08-27T12:25:53.000Z",
+                  "duration": 177,
+                  "title": "\"before each\" hook",
+                  "associatedSuite": "todo app",
+                  "state": "passed"
+              },
+              {
+                  "start": "2019-08-27T12:25:53.032Z",
+                  "end": "2019-08-27T12:25:53.032Z",
+                  "duration": 0,
+                  "title": "\"after each\" hook",
+                  "associatedSuite": "",
+                  "state": "passed"
+              }
+          ]
+      }
+  ],
+  "specs": [
+      "/Users/erwinheitzman/Documents/detesters/workshops/testautomationdays 2019/wdio-workshop-testautomationdays-2019/test/specs/todo.spec.js"
+  ],
+  "state": {
+      "passed": 7,
+      "failed": 2,
+      "skipped": 0
+  }
+}
