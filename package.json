@@ -10,8 +10,8 @@
     "compile": "npm run clean && tsc",
     "clean": "rm -rf dist coverage .tmp",
     "lint": "eslint ./src/**/*.ts",
-    "pretest": "node test-data/setup.js",
-    "test": "jest"
+    "pretest": "if test \"$CI\" = \"\" ; then rm -rf .tmp ; fi && node test-data/setup.js",
+		"test": "jest"
   },
   "repository": {
     "type": "git",
