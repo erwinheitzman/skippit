@@ -3,11 +3,11 @@ import { getFiles } from './files';
 
 const dir = '.tmp/results';
 
-test('should with a absolute path', () => {
+test('should work with a absolute path', () => {
 	expect(getFiles(resolve(process.cwd(), dir)).length).toEqual(2);
 });
 
-test('should with a relative path', () => {
+test('should work with a relative path', () => {
 	expect(getFiles(dir).length).toEqual(2);
 });
 
