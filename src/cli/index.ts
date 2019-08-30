@@ -97,8 +97,6 @@ function answersToConfig(answers: Answers): Config {
 			path: answers.resultPath,
 			formats: answers.resultFormats,
 		},
-		remote: answers.remotePath,
-		repoPath: answers.repoPath,
 		maxFailures: parseInt(answers.maxFailures, 10),
 	};
 }

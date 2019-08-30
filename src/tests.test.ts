@@ -1,27 +1,29 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
 import { disable } from './tests';
-import { Config } from './config';
 
 const file = resolve(process.cwd(), '.tmp/tests/todo.js');
+const skipped = () => readFileSync(file, 'utf8').match(/[it|test].skip/g) || [];
 
-let config: Config;
-let originalState: string;
+let config, originalState;
 
 describe('disable tests of which the failure rate is equal to or greater then the maxFailures', () => {
 	test('should find two matches to disable', () => {
 		config.maxFailures = 1;
-		expect(disableTestsAndReturnMatches().length).toEqual(2);
+		disable(config);
+		expect(skipped().length).toEqual(2);
 	});
 
 	test('should ignore one case', () => {
 		config.maxFailures = 2;
-		expect(disableTestsAndReturnMatches().length).toEqual(1);
+		disable(config);
+		expect(skipped().length).toEqual(1);
 	});
 
 	test('should ignore all cases', () => {
 		config.maxFailures = 3;
-		expect(disableTestsAndReturnMatches().length).toEqual(0);
+		disable(config);
+		expect(skipped().length).toEqual(0);
 	});
 });
 
@@ -49,17 +51,10 @@ beforeEach(() => {
 			path: resolve(process.cwd(), '.tmp/results'),
 			formats: ['json']
 		},
-		maxFailures: 0,
-		remote: '',
-		repoPath: ''
+		maxFailures: 0
 	};
 });
 
 afterEach(() => {
 	writeFileSync(file, originalState, 'utf8');
 });
-
-function disableTestsAndReturnMatches() {
-	disable(config);
-	return readFileSync(file, 'utf8').match(/[it|test].skip/g) || [];
-}

@@ -7,7 +7,5 @@ export interface Config {
 		path: string;
 		formats: Array<string>;
 	},
-	remote: string;
-	repoPath: string;
 	maxFailures: number;
 }
