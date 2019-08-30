@@ -1,11 +1,12 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
+import { Config } from './config';
 import { disable } from './tests';
 
 const file = resolve(process.cwd(), '.tmp/tests/todo.js');
 const skipped = () => readFileSync(file, 'utf8').match(/[it|test].skip/g) || [];
 
-let config, originalState;
+let config: Config, originalState: string;
 
 describe('disable tests of which the failure rate is equal to or greater then the maxFailures', () => {
 	test('should find two matches to disable', () => {
