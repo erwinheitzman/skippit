@@ -1,25 +1,43 @@
 {
   "name": "skippit",
-  "version": "0.4.1",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "nyc ./node_modules/mocha/bin/mocha --opts ./mocha.opts",
-    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
-  },
+  "version": "0.5.0",
+  "description": "Automation tool for failing tests",
   "author": "Erwin Heitzman <erwin.heitzman@gmail.com>",
+  "homepage": "https://github.com/erwinheitzman/skippit",
   "license": "MIT",
-  "dependencies": {},
+  "main": "cli/index.js",
+  "scripts": {
+    "compile": "npm run clean && tsc",
+    "clean": "rm -rf dist coverage .tmp",
+    "lint": "eslint ./src/**/*.ts",
+    "pretest": "if test \"$CI\" = \"\" ; then rm -rf .tmp ; fi && node test-data/setup.js",
+		"test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/erwinheitzman/skippit.git"
+  },
+  "keywords": [
+    "skippit",
+    "cli"
+  ],
+  "bugs": {
+    "url": "https://github.com/erwinheitzman/skippit/issues"
+  },
+  "dependencies": {
+    "commander": "^3.0.0",
+    "inquirer": "^7.0.0"
+  },
   "devDependencies": {
-    "chai": "^4.1.2",
-    "commander": "^2.13.0",
-    "eslint": "^4.15.0",
-    "goodparts": "^1.2.1",
-    "mocha": "^4.1.0",
-    "nyc": "^11.4.1",
-    "proxyquire": "^1.8.0",
-    "simple-git": "^1.85.0",
-    "sinon": "^4.1.5",
-    "xmldoc": "^1.1.0"
+    "@types/commander": "^2.12.2",
+    "@types/inquirer": "^6.5.0",
+    "@types/jest": "^24.0.18",
+    "@types/node": "^12.7.2",
+    "@typescript-eslint/eslint-plugin": "^2.0.0",
+    "@typescript-eslint/parser": "^2.0.0",
+    "eslint": "^6.2.2",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.5.3"
   }
 }

@@ -4,8 +4,17 @@ node_modules/
 # nyc coverage directories
 coverage/
 
-# logs
-disabled*
+# vscode
+.vscode/
+
+# compiled code
+dist/
+
+# generated test code
+.tmp/
 
 # config
-config*
+config.json
+
+# OSX
+.DS_Store

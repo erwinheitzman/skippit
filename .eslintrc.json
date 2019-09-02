@@ -1,34 +1,17 @@
 {
     "extends": [
-        "./node_modules/goodparts/.eslintrc.js"
+        "plugin:@typescript-eslint/recommended"
     ],
     "env": {
         "browser": true,
         "commonjs": true,
         "es6": true,
         "node": true,
-        "mocha": true
+        "jest": true
     },
+    "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "ecmaVersion": 8,
-        "ecmaFeatures": {
-            "jsx": true
-        },
+        "ecmaVersion": 2018,
         "sourceType": "module"
-    },
-    "rules": {
-        "global-require": "warn",
-        "callback-return": "warn",
-        "semi": ["error", "always"],
-        "max-len": ["warn", 80],
-        "no-const-assign": "warn",
-        "no-this-before-super": "error",
-        "no-undef": "error",
-        "no-unreachable": "error",
-        "no-unused-vars": "error",
-        "constructor-super": "error",
-        "valid-typeof": "error",
-        "indent": ["error", 4],
-        "no-console": ["error", { "allow": ["info", "warn", "error"] }]
     }
 }
