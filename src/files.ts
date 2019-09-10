@@ -6,35 +6,35 @@ export function getFiles(
 	extensions: Array<string> = [],
 	recursive: boolean = false
 ) {
-	const regexp = new RegExp('(?:.' + extensions.join('$|.') + '$)');
 	const filesList: Array<string> = [];
+	const resolvedDir = resolve(process.cwd(), dir);
 
-	if (!existsSync(dir)) {
+	if (!existsSync(resolvedDir)) {
 		return filesList;
 	}
 
+	const regexp = new RegExp('(?:.' + extensions.join('$|.') + '$)');
 	const retrieveFiles = (fullPath: string) => {
-		const files = readdirSync(fullPath);
+		readdirSync(fullPath)
+			.forEach((file) => {
+				const filepath = join(fullPath, file);
 
-		files.forEach((file) => {
-			const filepath = join(fullPath, file);
-
-			if (statSync(filepath).isDirectory()) {
-				if (recursive) {
-					retrieveFiles(filepath);
+				if (statSync(filepath).isDirectory()) {
+					if (recursive) {
+						retrieveFiles(filepath);
+					}
+					return;
 				}
-				return;
-			}
 
-			if (extensions.length && !regexp.test(file)) {
-				return;
-			}
+				if (extensions.length && !regexp.test(file)) {
+					return;
+				}
 
-			filesList.push(filepath);
-		});
+				filesList.push(filepath);
+			});
 	};
 
-	retrieveFiles(resolve(process.cwd(), dir));
+	retrieveFiles(resolvedDir);
 
 	return filesList;
 }
